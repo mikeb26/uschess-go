@@ -8,7 +8,9 @@ package uschess
 import (
 	"context"
 	"fmt"
+	"time"
 
+	openapi_types "github.com/oapi-codegen/runtime/types"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -18,12 +20,16 @@ import (
 type Player struct {
 	MemberDetail
 	RatingSupplements []RatingSupplement
+	MemberRatedGames  []MemberRatedGame
 }
 
-// GetPlayer retrieves memberID's details and, when includeSupplements is true,
-// every page of their rating supplements. The independent requests run
+// GetPlayer retrieves memberID's details and optional aggregate data.
+//
+// When includeSupplements is true, it retrieves every page of rating
+// supplements. When recentGamesOnOrAfterDate is non-nil, it retrieves every
+// page of rated games on or after that date. The independent requests run
 // concurrently and the first error cancels the remaining work.
-func (c *ClientWithResponses) GetPlayer(ctx context.Context, memberID MemberID, includeSupplements bool, reqEditors ...RequestEditorFn) (*Player, error) {
+func (c *ClientWithResponses) GetPlayer(ctx context.Context, memberID MemberID, includeSupplements bool, recentGamesOnOrAfterDate *time.Time, reqEditors ...RequestEditorFn) (*Player, error) {
 	player := &Player{}
 	group, groupCtx := errgroup.WithContext(ctx)
 
@@ -49,6 +55,19 @@ func (c *ClientWithResponses) GetPlayer(ctx context.Context, memberID MemberID, 
 				return err
 			}
 			player.RatingSupplements = supplements
+			return nil
+		})
+	}
+
+	if recentGamesOnOrAfterDate != nil {
+		group.Go(func() error {
+			games, err := c.GetAllMemberRatedGames(groupCtx, memberID, &GetMemberRatedGamesParams{
+				OnOrAfterDate: openapi_types.Date{Time: *recentGamesOnOrAfterDate},
+			}, reqEditors...)
+			if err != nil {
+				return err
+			}
+			player.MemberRatedGames = games
 			return nil
 		})
 	}
