@@ -8,6 +8,7 @@ package uschess
 import (
 	"context"
 	"fmt"
+	"sort"
 	"time"
 
 	openapi_types "github.com/oapi-codegen/runtime/types"
@@ -22,7 +23,53 @@ type Player struct {
 	RatingSupplements   []RatingSupplement
 	MemberRatedGames    []MemberRatedGame
 	MemberRatedSections []MemberRatedSection
-	LiveRatings         []MinimalRatingRecord
+
+	// contains all of the player's rating records which occur after the
+	// most recent rating supplement. there may be more than 1 per rating
+	// type. Use Player.LiveRating() to get a player's live rating.
+	postSupplementRatingRecords []MinimalRatingRecord
+	liveIncluded                bool
+	supplementInclude           bool
+	latestSupplement            RatingSupplement
+}
+
+// LiveRatings returns the player's ratings from the latest rating supplement,
+// updated with rating records from sections completed since that supplement.
+//
+// It returns an error unless the Player was retrieved with includeLiveRating
+// set to true.
+func (p *Player) LiveRatings() ([]RatingSupplementSystem, error) {
+	if !p.liveIncluded {
+		return nil, fmt.Errorf("live ratings were not included when retrieving this player")
+	}
+
+	ratings := make([]RatingSupplementSystem, 0, len(p.latestSupplement.Ratings))
+	for _, rating := range p.latestSupplement.Ratings {
+		if rating.Rating != 0 {
+			ratings = append(ratings, rating)
+		}
+	}
+
+	// postSupplementRatingRecords is ordered by section end date descending.
+	// Retain the first record for each rating type so multiple post-supplement
+	// events use the most recent record.
+	updated := make(map[RatingType]bool, len(ratings))
+	for _, record := range p.postSupplementRatingRecords {
+		if updated[record.RatingType] {
+			continue
+		}
+		for i := range ratings {
+			if ratings[i].RatingType != record.RatingType {
+				continue
+			}
+			ratings[i].Rating = record.PostRating
+			ratings[i].ProvisionalGameCount = record.PostProvisionalGameCount
+			updated[record.RatingType] = true
+			break
+		}
+	}
+
+	return ratings, nil
 }
 
 // GetPlayer retrieves memberID's details and optional aggregate data.
@@ -35,7 +82,14 @@ type Player struct {
 // retrieves every page of rated sections on or after that date. The independent
 // requests run concurrently and the first error cancels the remaining work.
 func (c *ClientWithResponses) GetPlayer(ctx context.Context, memberID MemberID, includeSupplements, includeLiveRating bool, recentGamesOnOrAfterDate, recentSectionsOnOrAfterDate *time.Time, reqEditors ...RequestEditorFn) (*Player, error) {
-	player := &Player{}
+	player := &Player{
+		liveIncluded:                includeLiveRating,
+		supplementInclude:           includeSupplements,
+		RatingSupplements:           make([]RatingSupplement, 0),
+		MemberRatedGames:            make([]MemberRatedGame, 0),
+		MemberRatedSections:         make([]MemberRatedSection, 0),
+		postSupplementRatingRecords: make([]MinimalRatingRecord, 0),
+	}
 	group, groupCtx := errgroup.WithContext(ctx)
 
 	group.Go(func() error {
@@ -53,13 +107,16 @@ func (c *ClientWithResponses) GetPlayer(ctx context.Context, memberID MemberID, 
 		return nil
 	})
 
-	if includeSupplements {
+	if includeSupplements || includeLiveRating {
 		group.Go(func() error {
 			supplements, err := c.GetAllRatingSupplements(groupCtx, memberID, reqEditors...)
 			if err != nil {
 				return err
 			}
-			player.RatingSupplements = supplements
+			if includeSupplements {
+				player.RatingSupplements = supplements
+			}
+			player.latestSupplement = supplements[0]
 			return nil
 		})
 	}
@@ -95,7 +152,7 @@ func (c *ClientWithResponses) GetPlayer(ctx context.Context, memberID MemberID, 
 				player.MemberRatedSections = sectionsOnOrAfter(sections, *recentSectionsOnOrAfterDate)
 			}
 			if includeLiveRating {
-				player.LiveRatings = getLiveRatingRecords(sections, liveRatingCutoff)
+				player.postSupplementRatingRecords = getLiveRatingRecords(sections, liveRatingCutoff)
 			}
 			return nil
 		})
@@ -116,6 +173,10 @@ func (c *ClientWithResponses) GetPlayer(ctx context.Context, memberID MemberID, 
 // unlikely 11:45 PM--11:59 PM Central edge case on the cutoff date, which
 // cannot be distinguished from an earlier end time.
 func getLiveRatingRecords(sections []MemberRatedSection, cutoff time.Time) []MinimalRatingRecord {
+	sort.SliceStable(sections, func(i, j int) bool {
+		return dateAfter(sections[i].EndDate.Time, sections[j].EndDate.Time)
+	})
+
 	var records []MinimalRatingRecord
 	for _, section := range sections {
 		if !dateAfter(section.EndDate.Time, cutoff) {

@@ -85,17 +85,17 @@ func TestGetPlayer(t *testing.T) {
 		if player.FirstName != "Jane" || player.LastName != "Player" {
 			t.Errorf("member detail = %+v; want Jane Player", player.MemberDetail)
 		}
-		if player.RatingSupplements != nil {
-			t.Errorf("RatingSupplements = %v; want nil when not included", player.RatingSupplements)
+		if len(player.RatingSupplements) != 0 {
+			t.Errorf("RatingSupplements = %v; want empty when not included", len(player.RatingSupplements))
 		}
-		if player.MemberRatedGames != nil {
-			t.Errorf("MemberRatedGames = %v; want nil when no date is provided", player.MemberRatedGames)
+		if len(player.MemberRatedGames) != 0 {
+			t.Errorf("MemberRatedGames = %v; want empty when no date is provided", len(player.MemberRatedGames))
 		}
-		if player.MemberRatedSections != nil {
-			t.Errorf("MemberRatedSections = %v; want nil when no date is provided", player.MemberRatedSections)
+		if len(player.MemberRatedSections) != 0 {
+			t.Errorf("MemberRatedSections = %v; want empty when no date is provided", len(player.MemberRatedSections))
 		}
-		if player.LiveRatings != nil {
-			t.Errorf("LiveRatings = %v; want nil when not included", player.LiveRatings)
+		if len(player.postSupplementRatingRecords) != 0 {
+			t.Errorf("LiveRatings = %v; want empty when not included", len(player.postSupplementRatingRecords))
 		}
 		if got := doer.paths(); len(got) != 1 || got[0] != "/api/v1/members/12345678" {
 			t.Errorf("request paths = %v; want only member request", got)
@@ -148,8 +148,8 @@ func TestGetPlayer(t *testing.T) {
 		if got := len(player.MemberRatedGames); got != 1 {
 			t.Errorf("MemberRatedGames length = %d; want 1", got)
 		}
-		if player.RatingSupplements != nil {
-			t.Errorf("RatingSupplements = %v; want nil when not included", player.RatingSupplements)
+		if len(player.RatingSupplements) != 0 {
+			t.Errorf("RatingSupplements = %v; want empty when not included", len(player.RatingSupplements))
 		}
 
 		paths := doer.paths()
@@ -183,8 +183,8 @@ func TestGetPlayer(t *testing.T) {
 		if got := len(player.MemberRatedSections); got != 1 {
 			t.Errorf("MemberRatedSections length = %d; want 1", got)
 		}
-		if player.MemberRatedGames != nil {
-			t.Errorf("MemberRatedGames = %v; want nil when no date is provided", player.MemberRatedGames)
+		if len(player.MemberRatedGames) != 0 {
+			t.Errorf("MemberRatedGames = %v; want empty when no date is provided", len(player.MemberRatedGames))
 		}
 
 		paths := doer.paths()
@@ -225,7 +225,7 @@ func TestGetPlayer(t *testing.T) {
 		if got := len(player.MemberRatedSections); got != 1 {
 			t.Errorf("MemberRatedSections length = %d; want 1 after trimming to requested date", got)
 		}
-		if got := len(player.LiveRatings); got != 2 {
+		if got := len(player.postSupplementRatingRecords); got != 2 {
 			t.Errorf("LiveRatings length = %d; want 2 sections ending after cutoff", got)
 		}
 
@@ -256,15 +256,63 @@ func TestGetLiveRatingRecords(t *testing.T) {
 			EndDate:       openapi_types.Date{Time: cutoff.AddDate(0, 0, 1)},
 			RatingRecords: []MinimalRatingRecord{{PostRating: 1500}, {PostRating: 1600}},
 		},
+		{
+			EndDate:       openapi_types.Date{Time: cutoff.AddDate(0, 0, 2)},
+			RatingRecords: []MinimalRatingRecord{{PostRating: 1700}},
+		},
 	}
 
 	records := getLiveRatingRecords(sections, cutoff)
-	if got := len(records); got != 2 {
-		t.Fatalf("getLiveRatingRecords returned %d records; want 2", got)
+	if got := len(records); got != 3 {
+		t.Fatalf("getLiveRatingRecords returned %d records; want 3", got)
 	}
-	if records[0].PostRating != 1500 || records[1].PostRating != 1600 {
-		t.Errorf("getLiveRatingRecords = %+v; want records from the post-cutoff section", records)
+	if records[0].PostRating != 1700 || records[1].PostRating != 1500 || records[2].PostRating != 1600 {
+		t.Errorf("getLiveRatingRecords = %+v; want records ordered by section end date descending", records)
 	}
+}
+
+func TestPlayerLiveRating(t *testing.T) {
+	t.Run("returns an error when live ratings were not included", func(t *testing.T) {
+		player := &Player{}
+
+		if _, err := player.LiveRatings(); err == nil {
+			t.Error("LiveRating returned nil error; want an error")
+		}
+	})
+
+	t.Run("filters unlisted ratings and uses the most recent record per type", func(t *testing.T) {
+		player := &Player{
+			liveIncluded: true,
+			latestSupplement: RatingSupplement{Ratings: []RatingSupplementSystem{
+				{RatingType: RatingTypeR, Rating: 1400, ProvisionalGameCount: 10},
+				{RatingType: RatingTypeQ, Rating: 0},
+				{RatingType: RatingTypeB, Rating: 1200, ProvisionalGameCount: 5},
+			}},
+			// Records are ordered from most to least recent.
+			postSupplementRatingRecords: []MinimalRatingRecord{
+				{RatingType: RatingTypeR, PostRating: 1550, PostProvisionalGameCount: 12},
+				{RatingType: RatingTypeB, PostRating: 1300, PostProvisionalGameCount: 6},
+				{RatingType: RatingTypeR, PostRating: 1500, PostProvisionalGameCount: 11},
+			},
+		}
+
+		ratings, err := player.LiveRatings()
+		if err != nil {
+			t.Fatalf("LiveRating returned an error: %v", err)
+		}
+		want := []RatingSupplementSystem{
+			{RatingType: RatingTypeR, Rating: 1550, ProvisionalGameCount: 12},
+			{RatingType: RatingTypeB, Rating: 1300, ProvisionalGameCount: 6},
+		}
+		if len(ratings) != len(want) {
+			t.Fatalf("LiveRating returned %d ratings; want %d: %+v", len(ratings), len(want), ratings)
+		}
+		for i := range want {
+			if ratings[i] != want[i] {
+				t.Errorf("LiveRatings()[%d] = %+v; want %+v", i, ratings[i], want[i])
+			}
+		}
+	})
 }
 
 func TestMostRecentMonthlyRatingCutoff(t *testing.T) {
