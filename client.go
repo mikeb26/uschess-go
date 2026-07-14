@@ -14,15 +14,17 @@ import (
 const (
 	defaultAcceptHeader = "application/json"
 	defaultAPIServer    = "https://ratings-api.uschess.org"
+	defaultUserAgent    = "uschess-go/0.2.0 (+https://github.com/mikeb26/uschess-go)"
 )
 
 // NewDefaultClient creates a generated response-aware client for the US Chess
 // ratings API. It retries eligible requests and requests JSON responses by
 // default. Request editors passed in opts, or per request, can override the
-// default Accept header.
+// default Accept and User-Agent headers.
 func NewDefaultClient(opts ...ClientOption) (*ClientWithResponses, error) {
 	opts = append([]ClientOption{
 		WithRequestEditorFn(defaultAcceptHeaderEditor),
+		WithUserAgent(defaultUserAgent),
 	}, opts...)
 	client, err := NewClient(defaultAPIServer, opts...)
 	if err != nil {
@@ -55,4 +57,13 @@ func defaultAcceptHeaderEditor(_ context.Context, req *http.Request) error {
 		req.Header.Set("Accept", defaultAcceptHeader)
 	}
 	return nil
+}
+
+// WithUserAgent sets the User-Agent header on requests made by the client.
+// When used with NewDefaultClient, it overrides the default User-Agent.
+func WithUserAgent(userAgent string) ClientOption {
+	return WithRequestEditorFn(func(_ context.Context, req *http.Request) error {
+		req.Header.Set("User-Agent", userAgent)
+		return nil
+	})
 }

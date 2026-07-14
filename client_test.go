@@ -52,6 +52,27 @@ func TestNewDefaultClientSetsJSONAcceptHeader(t *testing.T) {
 	if got := doer.req.Header.Get("Accept"); got != defaultAcceptHeader {
 		t.Errorf("Accept header = %q; want %q", got, defaultAcceptHeader)
 	}
+	if got := doer.req.Header.Get("User-Agent"); got != defaultUserAgent {
+		t.Errorf("User-Agent header = %q; want %q", got, defaultUserAgent)
+	}
+}
+
+func TestNewDefaultClientAllowsUserAgentOverride(t *testing.T) {
+	doer := &testDoer{}
+	client, err := NewDefaultClient(
+		WithHTTPClient(doer),
+		WithUserAgent("custom-client/1.0"),
+	)
+	if err != nil {
+		t.Fatalf("NewDefaultClient returned an error: %v", err)
+	}
+
+	if _, err := client.GetMember(context.Background(), "12641216"); err != nil {
+		t.Fatalf("GetMember returned an error: %v", err)
+	}
+	if got, want := doer.req.Header.Get("User-Agent"), "custom-client/1.0"; got != want {
+		t.Errorf("User-Agent header = %q; want %q", got, want)
+	}
 }
 
 func TestNewDefaultClientAllowsAcceptHeaderOverride(t *testing.T) {
