@@ -2329,8 +2329,8 @@ type apiKeyContextKey string
 
 // GetAffiliatesPageParams defines parameters for GetAffiliatesPage.
 type GetAffiliatesPageParams struct {
-	Fuzzy     string          `form:"Fuzzy,omitempty" json:"Fuzzy,omitempty,omitzero"`
-	StateCode string          `form:"StateCode,omitempty" json:"StateCode,omitempty,omitzero"`
+	Fuzzy     *string         `form:"Fuzzy,omitempty" json:"Fuzzy,omitempty"`
+	StateCode *string         `form:"StateCode,omitempty" json:"StateCode,omitempty"`
 	SortBy    AffiliateSortBy `form:"SortBy,omitempty" json:"SortBy,omitempty,omitzero"`
 	Dir       SortDirection   `form:"Dir,omitempty" json:"Dir,omitempty,omitzero"`
 	Offset    int32           `form:"Offset,omitempty" json:"Offset,omitempty,omitzero"`
@@ -2339,17 +2339,17 @@ type GetAffiliatesPageParams struct {
 
 // GetAffiliateRatedEventsParams defines parameters for GetAffiliateRatedEvents.
 type GetAffiliateRatedEventsParams struct {
-	Name           string               `form:"Name,omitempty" json:"Name,omitempty,omitzero"`
-	FromDate       openapi_types.Date   `form:"FromDate,omitempty" json:"FromDate,omitempty,omitzero"`
-	ToDate         openapi_types.Date   `form:"ToDate,omitempty" json:"ToDate,omitempty,omitzero"`
-	StateCode      string               `form:"StateCode,omitempty" json:"StateCode,omitempty,omitzero"`
-	City           string               `form:"City,omitempty" json:"City,omitempty,omitzero"`
-	Affiliate      string               `form:"Affiliate,omitempty" json:"Affiliate,omitempty,omitzero"`
-	ScholasticCode ParticipantCoding    `form:"ScholasticCode,omitempty" json:"ScholasticCode,omitempty,omitzero"`
-	Women          bool                 `form:"Women,omitempty" json:"Women,omitempty,omitzero"`
-	MinSize        int32                `form:"MinSize,omitempty" json:"MinSize,omitempty,omitzero"`
-	RatingSource   RatingType           `form:"RatingSource,omitempty" json:"RatingSource,omitempty,omitzero"`
-	DomesticStatus DomesticStatus       `form:"DomesticStatus,omitempty" json:"DomesticStatus,omitempty,omitzero"`
+	Name           *string              `form:"Name,omitempty" json:"Name,omitempty"`
+	FromDate       *openapi_types.Date  `form:"FromDate,omitempty" json:"FromDate,omitempty"`
+	ToDate         *openapi_types.Date  `form:"ToDate,omitempty" json:"ToDate,omitempty"`
+	StateCode      *string              `form:"StateCode,omitempty" json:"StateCode,omitempty"`
+	City           *string              `form:"City,omitempty" json:"City,omitempty"`
+	Affiliate      *string              `form:"Affiliate,omitempty" json:"Affiliate,omitempty"`
+	ScholasticCode *ParticipantCoding   `form:"ScholasticCode,omitempty" json:"ScholasticCode,omitempty"`
+	Women          *bool                `form:"Women,omitempty" json:"Women,omitempty"`
+	MinSize        *int32               `form:"MinSize,omitempty" json:"MinSize,omitempty"`
+	RatingSource   *RatingType          `form:"RatingSource,omitempty" json:"RatingSource,omitempty"`
+	DomesticStatus *DomesticStatus      `form:"DomesticStatus,omitempty" json:"DomesticStatus,omitempty"`
 	SortBy         AffiliateEventSortBy `form:"SortBy,omitempty" json:"SortBy,omitempty,omitzero"`
 	Dir            SortDirection        `form:"Dir,omitempty" json:"Dir,omitempty,omitzero"`
 	Offset         int32                `form:"Offset,omitempty" json:"Offset,omitempty,omitzero"`
@@ -2365,9 +2365,9 @@ type UploadMultipartBody struct {
 
 // GetGrandPrixSectionsParams defines parameters for GetGrandPrixSections.
 type GetGrandPrixSectionsParams struct {
-	Search    string                 `form:"Search,omitempty" json:"Search,omitempty,omitzero"`
-	StateCode string                 `form:"StateCode,omitempty" json:"StateCode,omitempty,omitzero"`
-	IsWomen   bool                   `form:"IsWomen,omitempty" json:"IsWomen,omitempty,omitzero"`
+	Search    *string                `form:"Search,omitempty" json:"Search,omitempty"`
+	StateCode *string                `form:"StateCode,omitempty" json:"StateCode,omitempty"`
+	IsWomen   *bool                  `form:"IsWomen,omitempty" json:"IsWomen,omitempty"`
 	SortBy    GrandPrixSectionSortBy `form:"SortBy,omitempty" json:"SortBy,omitempty,omitzero"`
 	Dir       SortDirection          `form:"Dir,omitempty" json:"Dir,omitempty,omitzero"`
 	Offset    int32                  `form:"Offset,omitempty" json:"Offset,omitempty,omitzero"`
@@ -2376,9 +2376,9 @@ type GetGrandPrixSectionsParams struct {
 
 // GetGrandPrixStandingsParams defines parameters for GetGrandPrixStandings.
 type GetGrandPrixStandingsParams struct {
-	Search    string                  `form:"Search,omitempty" json:"Search,omitempty,omitzero"`
-	StateCode string                  `form:"StateCode,omitempty" json:"StateCode,omitempty,omitzero"`
-	IsWomen   bool                    `form:"IsWomen,omitempty" json:"IsWomen,omitempty,omitzero"`
+	Search    *string                 `form:"Search,omitempty" json:"Search,omitempty"`
+	StateCode *string                 `form:"StateCode,omitempty" json:"StateCode,omitempty"`
+	IsWomen   *bool                   `form:"IsWomen,omitempty" json:"IsWomen,omitempty"`
 	SortBy    GrandPrixStandingSortBy `form:"SortBy,omitempty" json:"SortBy,omitempty,omitzero"`
 	Dir       SortDirection           `form:"Dir,omitempty" json:"Dir,omitempty,omitzero"`
 	Offset    int32                   `form:"Offset,omitempty" json:"Offset,omitempty,omitzero"`
@@ -2387,35 +2387,35 @@ type GetGrandPrixStandingsParams struct {
 
 // GetMembersPageParams defines parameters for GetMembersPage.
 type GetMembersPageParams struct {
-	Fuzzy                string               `form:"Fuzzy,omitempty" json:"Fuzzy,omitempty,omitzero"`
-	RatingSource         RatingType           `form:"RatingSource,omitempty" json:"RatingSource,omitempty,omitzero"`
-	StateRep             string               `form:"StateRep,omitempty" json:"StateRep,omitempty,omitzero"`
-	Jurisdiction         string               `form:"Jurisdiction,omitempty" json:"Jurisdiction,omitempty,omitzero"`
-	Gender               Gender               `form:"Gender,omitempty" json:"Gender,omitempty,omitzero"`
-	Fide                 bool                 `form:"Fide,omitempty" json:"Fide,omitempty,omitzero"`
-	Domestic             bool                 `form:"Domestic,omitempty" json:"Domestic,omitempty,omitzero"`
-	MinRating            int32                `form:"MinRating,omitempty" json:"MinRating,omitempty,omitzero"`
-	MaxRating            int32                `form:"MaxRating,omitempty" json:"MaxRating,omitempty,omitzero"`
-	Ranked               bool                 `form:"Ranked,omitempty" json:"Ranked,omitempty,omitzero"`
-	Status               []MemberStatusFilter `form:"Status,omitempty" json:"Status,omitempty,omitzero"`
-	ExpireStartDate      openapi_types.Date   `form:"ExpireStartDate,omitempty" json:"ExpireStartDate,omitempty,omitzero"`
-	ExpireEndDate        openapi_types.Date   `form:"ExpireEndDate,omitempty" json:"ExpireEndDate,omitempty,omitzero"`
-	UsePeak              bool                 `form:"UsePeak,omitempty" json:"UsePeak,omitempty,omitzero"`
-	RatingCutoffFrom     openapi_types.Date   `form:"RatingCutoffFrom,omitempty" json:"RatingCutoffFrom,omitempty,omitzero"`
-	RatingCutoffTo       openapi_types.Date   `form:"RatingCutoffTo,omitempty" json:"RatingCutoffTo,omitempty,omitzero"`
-	UseUnofficialRatings bool                 `form:"UseUnofficialRatings,omitempty" json:"UseUnofficialRatings,omitempty,omitzero"`
-	MinAge               int32                `form:"MinAge,omitempty" json:"MinAge,omitempty,omitzero"`
-	MaxAge               int32                `form:"MaxAge,omitempty" json:"MaxAge,omitempty,omitzero"`
-	AgeDate              openapi_types.Date   `form:"AgeDate,omitempty" json:"AgeDate,omitempty,omitzero"`
-	SortBy               MemberSortBy         `form:"SortBy,omitempty" json:"SortBy,omitempty,omitzero"`
-	Dir                  SortDirection        `form:"Dir,omitempty" json:"Dir,omitempty,omitzero"`
-	Offset               int32                `form:"Offset,omitempty" json:"Offset,omitempty,omitzero"`
-	Size                 int32                `form:"Size,omitempty" json:"Size,omitempty,omitzero"`
+	Fuzzy                *string               `form:"Fuzzy,omitempty" json:"Fuzzy,omitempty"`
+	RatingSource         *RatingType           `form:"RatingSource,omitempty" json:"RatingSource,omitempty"`
+	StateRep             *string               `form:"StateRep,omitempty" json:"StateRep,omitempty"`
+	Jurisdiction         *string               `form:"Jurisdiction,omitempty" json:"Jurisdiction,omitempty"`
+	Gender               *Gender               `form:"Gender,omitempty" json:"Gender,omitempty"`
+	Fide                 *bool                 `form:"Fide,omitempty" json:"Fide,omitempty"`
+	Domestic             *bool                 `form:"Domestic,omitempty" json:"Domestic,omitempty"`
+	MinRating            *int32                `form:"MinRating,omitempty" json:"MinRating,omitempty"`
+	MaxRating            *int32                `form:"MaxRating,omitempty" json:"MaxRating,omitempty"`
+	Ranked               *bool                 `form:"Ranked,omitempty" json:"Ranked,omitempty"`
+	Status               *[]MemberStatusFilter `form:"Status,omitempty" json:"Status,omitempty"`
+	ExpireStartDate      *openapi_types.Date   `form:"ExpireStartDate,omitempty" json:"ExpireStartDate,omitempty"`
+	ExpireEndDate        *openapi_types.Date   `form:"ExpireEndDate,omitempty" json:"ExpireEndDate,omitempty"`
+	UsePeak              *bool                 `form:"UsePeak,omitempty" json:"UsePeak,omitempty"`
+	RatingCutoffFrom     *openapi_types.Date   `form:"RatingCutoffFrom,omitempty" json:"RatingCutoffFrom,omitempty"`
+	RatingCutoffTo       *openapi_types.Date   `form:"RatingCutoffTo,omitempty" json:"RatingCutoffTo,omitempty"`
+	UseUnofficialRatings *bool                 `form:"UseUnofficialRatings,omitempty" json:"UseUnofficialRatings,omitempty"`
+	MinAge               *int32                `form:"MinAge,omitempty" json:"MinAge,omitempty"`
+	MaxAge               *int32                `form:"MaxAge,omitempty" json:"MaxAge,omitempty"`
+	AgeDate              *openapi_types.Date   `form:"AgeDate,omitempty" json:"AgeDate,omitempty"`
+	SortBy               MemberSortBy          `form:"SortBy,omitempty" json:"SortBy,omitempty,omitzero"`
+	Dir                  SortDirection         `form:"Dir,omitempty" json:"Dir,omitempty,omitzero"`
+	Offset               int32                 `form:"Offset,omitempty" json:"Offset,omitempty,omitzero"`
+	Size                 int32                 `form:"Size,omitempty" json:"Size,omitempty,omitzero"`
 }
 
 // GetUnofficialRankLookupParams defines parameters for GetUnofficialRankLookup.
 type GetUnofficialRankLookupParams struct {
-	Jurisdiction string `form:"jurisdiction,omitempty" json:"jurisdiction,omitempty,omitzero"`
+	Jurisdiction *string `form:"jurisdiction,omitempty" json:"jurisdiction,omitempty"`
 }
 
 // GetMemberAwardsPageParams defines parameters for GetMemberAwardsPage.
@@ -2471,26 +2471,26 @@ type GetTopPlayersReportForMemberParams struct {
 
 // GetPendingEventsPageParams defines parameters for GetPendingEventsPage.
 type GetPendingEventsPageParams struct {
-	Name           string              `form:"Name,omitempty" json:"Name,omitempty,omitzero"`
-	FromDate       openapi_types.Date  `form:"FromDate,omitempty" json:"FromDate,omitempty,omitzero"`
-	ToDate         openapi_types.Date  `form:"ToDate,omitempty" json:"ToDate,omitempty,omitzero"`
-	StateCode      string              `form:"StateCode,omitempty" json:"StateCode,omitempty,omitzero"`
-	City           string              `form:"City,omitempty" json:"City,omitempty,omitzero"`
-	ScholasticCode ParticipantCoding   `form:"ScholasticCode,omitempty" json:"ScholasticCode,omitempty,omitzero"`
-	Women          bool                `form:"Women,omitempty" json:"Women,omitempty,omitzero"`
-	GrandPrix      bool                `form:"GrandPrix,omitempty" json:"GrandPrix,omitempty,omitzero"`
-	MinSize        int32               `form:"MinSize,omitempty" json:"MinSize,omitempty,omitzero"`
-	TimeControl    string              `form:"TimeControl,omitempty" json:"TimeControl,omitempty,omitzero"`
-	RatingSource   RatingType          `form:"RatingSource,omitempty" json:"RatingSource,omitempty,omitzero"`
-	Status         []EventStatus       `form:"Status,omitempty" json:"Status,omitempty,omitzero"`
-	ReviewStatus   []EventReviewStatus `form:"ReviewStatus,omitempty" json:"ReviewStatus,omitempty,omitzero"`
-	DomesticStatus DomesticStatus      `form:"DomesticStatus,omitempty" json:"DomesticStatus,omitempty,omitzero"`
-	OwnerId        string              `form:"OwnerId,omitempty" json:"OwnerId,omitempty,omitzero"`
-	AffiliateId    AffiliateID         `form:"AffiliateId,omitempty" json:"AffiliateId,omitempty,omitzero"`
-	SortBy         PendingEventSortBy  `form:"SortBy,omitempty" json:"SortBy,omitempty,omitzero"`
-	Dir            SortDirection       `form:"Dir,omitempty" json:"Dir,omitempty,omitzero"`
-	Offset         int32               `form:"Offset,omitempty" json:"Offset,omitempty,omitzero"`
-	Size           int32               `form:"Size,omitempty" json:"Size,omitempty,omitzero"`
+	Name           *string              `form:"Name,omitempty" json:"Name,omitempty"`
+	FromDate       *openapi_types.Date  `form:"FromDate,omitempty" json:"FromDate,omitempty"`
+	ToDate         *openapi_types.Date  `form:"ToDate,omitempty" json:"ToDate,omitempty"`
+	StateCode      *string              `form:"StateCode,omitempty" json:"StateCode,omitempty"`
+	City           *string              `form:"City,omitempty" json:"City,omitempty"`
+	ScholasticCode *ParticipantCoding   `form:"ScholasticCode,omitempty" json:"ScholasticCode,omitempty"`
+	Women          *bool                `form:"Women,omitempty" json:"Women,omitempty"`
+	GrandPrix      *bool                `form:"GrandPrix,omitempty" json:"GrandPrix,omitempty"`
+	MinSize        *int32               `form:"MinSize,omitempty" json:"MinSize,omitempty"`
+	TimeControl    *string              `form:"TimeControl,omitempty" json:"TimeControl,omitempty"`
+	RatingSource   *RatingType          `form:"RatingSource,omitempty" json:"RatingSource,omitempty"`
+	Status         *[]EventStatus       `form:"Status,omitempty" json:"Status,omitempty"`
+	ReviewStatus   *[]EventReviewStatus `form:"ReviewStatus,omitempty" json:"ReviewStatus,omitempty"`
+	DomesticStatus *DomesticStatus      `form:"DomesticStatus,omitempty" json:"DomesticStatus,omitempty"`
+	OwnerId        *string              `form:"OwnerId,omitempty" json:"OwnerId,omitempty"`
+	AffiliateId    *AffiliateID         `form:"AffiliateId,omitempty" json:"AffiliateId,omitempty"`
+	SortBy         PendingEventSortBy   `form:"SortBy,omitempty" json:"SortBy,omitempty,omitzero"`
+	Dir            SortDirection        `form:"Dir,omitempty" json:"Dir,omitempty,omitzero"`
+	Offset         int32                `form:"Offset,omitempty" json:"Offset,omitempty,omitzero"`
+	Size           int32                `form:"Size,omitempty" json:"Size,omitempty,omitzero"`
 }
 
 // CreatePendingEventApplicationWildcardPlusJSONBody defines parameters for CreatePendingEvent.
@@ -2549,7 +2549,7 @@ type UpdatePendingSectionJSONBody = PendingSectionUpdate
 
 // ListUnplayedRoundsParams defines parameters for ListUnplayedRounds.
 type ListUnplayedRoundsParams struct {
-	RoundNumber int32 `form:"roundNumber,omitempty" json:"roundNumber,omitempty,omitzero"`
+	RoundNumber *int32 `form:"roundNumber,omitempty" json:"roundNumber,omitempty"`
 }
 
 // CreateUnplayedRoundApplicationWildcardPlusJSONBody defines parameters for CreateUnplayedRound.
@@ -2560,14 +2560,14 @@ type CreateUnplayedRoundJSONBody = UnplayedRoundCreate
 
 // DeleteUnplayedRoundParams defines parameters for DeleteUnplayedRound.
 type DeleteUnplayedRoundParams struct {
-	PlayerId string `form:"playerId,omitempty" json:"playerId,omitempty,omitzero"`
+	PlayerId *string `form:"playerId,omitempty" json:"playerId,omitempty"`
 }
 
 // ListRoundUnpairedPlayersParams defines parameters for ListRoundUnpairedPlayers.
 type ListRoundUnpairedPlayersParams struct {
-	Fuzzy          string              `form:"Fuzzy,omitempty" json:"Fuzzy,omitempty,omitzero"`
-	State          string              `form:"State,omitempty" json:"State,omitempty,omitzero"`
-	WithValidation []ValidationFilter  `form:"WithValidation,omitempty" json:"WithValidation,omitempty,omitzero"`
+	Fuzzy          *string             `form:"Fuzzy,omitempty" json:"Fuzzy,omitempty"`
+	State          *string             `form:"State,omitempty" json:"State,omitempty"`
+	WithValidation *[]ValidationFilter `form:"WithValidation,omitempty" json:"WithValidation,omitempty"`
 	SortBy         PendingPlayerSortBy `form:"SortBy,omitempty" json:"SortBy,omitempty,omitzero"`
 	Dir            SortDirection       `form:"Dir,omitempty" json:"Dir,omitempty,omitzero"`
 	Offset         int32               `form:"Offset,omitempty" json:"Offset,omitempty,omitzero"`
@@ -2588,9 +2588,9 @@ type UpdatePendingGameJSONBody = PendingGameUpdate
 
 // ListPendingPlayersParams defines parameters for ListPendingPlayers.
 type ListPendingPlayersParams struct {
-	Fuzzy          string              `form:"Fuzzy,omitempty" json:"Fuzzy,omitempty,omitzero"`
-	State          string              `form:"State,omitempty" json:"State,omitempty,omitzero"`
-	WithValidation []ValidationFilter  `form:"WithValidation,omitempty" json:"WithValidation,omitempty,omitzero"`
+	Fuzzy          *string             `form:"Fuzzy,omitempty" json:"Fuzzy,omitempty"`
+	State          *string             `form:"State,omitempty" json:"State,omitempty"`
+	WithValidation *[]ValidationFilter `form:"WithValidation,omitempty" json:"WithValidation,omitempty"`
 	SortBy         PendingPlayerSortBy `form:"SortBy,omitempty" json:"SortBy,omitempty,omitzero"`
 	Dir            SortDirection       `form:"Dir,omitempty" json:"Dir,omitempty,omitzero"`
 	Offset         int32               `form:"Offset,omitempty" json:"Offset,omitempty,omitzero"`
@@ -2611,28 +2611,28 @@ type UpdatePendingPlayerJSONBody = PendingPlayerUpdate
 
 // GetPromoCodesPageParams defines parameters for GetPromoCodesPage.
 type GetPromoCodesPageParams struct {
-	Fuzzy  string `form:"fuzzy,omitempty" json:"fuzzy,omitempty,omitzero"`
-	Offset int32  `form:"Offset,omitempty" json:"Offset,omitempty,omitzero"`
-	Size   int32  `form:"Size,omitempty" json:"Size,omitempty,omitzero"`
+	Fuzzy  *string `form:"fuzzy,omitempty" json:"fuzzy,omitempty"`
+	Offset int32   `form:"Offset,omitempty" json:"Offset,omitempty,omitzero"`
+	Size   int32   `form:"Size,omitempty" json:"Size,omitempty,omitzero"`
 }
 
 // GetRatedEventsPageParams defines parameters for GetRatedEventsPage.
 type GetRatedEventsPageParams struct {
-	Name           string             `form:"Name,omitempty" json:"Name,omitempty,omitzero"`
-	FromDate       openapi_types.Date `form:"FromDate,omitempty" json:"FromDate,omitempty,omitzero"`
-	ToDate         openapi_types.Date `form:"ToDate,omitempty" json:"ToDate,omitempty,omitzero"`
-	StateCode      string             `form:"StateCode,omitempty" json:"StateCode,omitempty,omitzero"`
-	City           string             `form:"City,omitempty" json:"City,omitempty,omitzero"`
-	ScholasticCode ParticipantCoding  `form:"ScholasticCode,omitempty" json:"ScholasticCode,omitempty,omitzero"`
-	Women          bool               `form:"Women,omitempty" json:"Women,omitempty,omitzero"`
-	GrandPrix      bool               `form:"GrandPrix,omitempty" json:"GrandPrix,omitempty,omitzero"`
-	MinSize        int32              `form:"MinSize,omitempty" json:"MinSize,omitempty,omitzero"`
-	RatingSource   RatingType         `form:"RatingSource,omitempty" json:"RatingSource,omitempty,omitzero"`
-	DomesticStatus DomesticStatus     `form:"DomesticStatus,omitempty" json:"DomesticStatus,omitempty,omitzero"`
-	SortBy         RatedEventSortBy   `form:"SortBy,omitempty" json:"SortBy,omitempty,omitzero"`
-	Dir            SortDirection      `form:"Dir,omitempty" json:"Dir,omitempty,omitzero"`
-	Offset         int32              `form:"Offset,omitempty" json:"Offset,omitempty,omitzero"`
-	Size           int32              `form:"Size,omitempty" json:"Size,omitempty,omitzero"`
+	Name           *string             `form:"Name,omitempty" json:"Name,omitempty"`
+	FromDate       *openapi_types.Date `form:"FromDate,omitempty" json:"FromDate,omitempty"`
+	ToDate         *openapi_types.Date `form:"ToDate,omitempty" json:"ToDate,omitempty"`
+	StateCode      *string             `form:"StateCode,omitempty" json:"StateCode,omitempty"`
+	City           *string             `form:"City,omitempty" json:"City,omitempty"`
+	ScholasticCode *ParticipantCoding  `form:"ScholasticCode,omitempty" json:"ScholasticCode,omitempty"`
+	Women          *bool               `form:"Women,omitempty" json:"Women,omitempty"`
+	GrandPrix      *bool               `form:"GrandPrix,omitempty" json:"GrandPrix,omitempty"`
+	MinSize        *int32              `form:"MinSize,omitempty" json:"MinSize,omitempty"`
+	RatingSource   *RatingType         `form:"RatingSource,omitempty" json:"RatingSource,omitempty"`
+	DomesticStatus *DomesticStatus     `form:"DomesticStatus,omitempty" json:"DomesticStatus,omitempty"`
+	SortBy         RatedEventSortBy    `form:"SortBy,omitempty" json:"SortBy,omitempty,omitzero"`
+	Dir            SortDirection       `form:"Dir,omitempty" json:"Dir,omitempty,omitzero"`
+	Offset         int32               `form:"Offset,omitempty" json:"Offset,omitempty,omitzero"`
+	Size           int32               `form:"Size,omitempty" json:"Size,omitempty,omitzero"`
 }
 
 // GetRatedEventStandingsPageParams defines parameters for GetRatedEventStandingsPage.
@@ -2643,19 +2643,19 @@ type GetRatedEventStandingsPageParams struct {
 
 // GetRatedSectionsPageParams defines parameters for GetRatedSectionsPage.
 type GetRatedSectionsPageParams struct {
-	EventName           string             `form:"EventName,omitempty" json:"EventName,omitempty,omitzero"`
-	PlayerName          string             `form:"PlayerName,omitempty" json:"PlayerName,omitempty,omitzero"`
-	FromDate            openapi_types.Date `form:"FromDate,omitempty" json:"FromDate,omitempty,omitzero"`
-	ToDate              openapi_types.Date `form:"ToDate,omitempty" json:"ToDate,omitempty,omitzero"`
-	StateCode           string             `form:"StateCode,omitempty" json:"StateCode,omitempty,omitzero"`
-	City                string             `form:"City,omitempty" json:"City,omitempty,omitzero"`
-	DomesticStatus      DomesticStatus     `form:"DomesticStatus,omitempty" json:"DomesticStatus,omitempty,omitzero"`
-	IsWomens            bool               `form:"IsWomens,omitempty" json:"IsWomens,omitempty,omitzero"`
-	IsGrandPrix         bool               `form:"IsGrandPrix,omitempty" json:"IsGrandPrix,omitempty,omitzero"`
-	IsGrandPrixJr       bool               `form:"IsGrandPrixJr,omitempty" json:"IsGrandPrixJr,omitempty,omitzero"`
-	IsGrandPrixExtended bool               `form:"IsGrandPrixExtended,omitempty" json:"IsGrandPrixExtended,omitempty,omitzero"`
-	Offset              int32              `form:"Offset,omitempty" json:"Offset,omitempty,omitzero"`
-	Size                int32              `form:"Size,omitempty" json:"Size,omitempty,omitzero"`
+	EventName           *string             `form:"EventName,omitempty" json:"EventName,omitempty"`
+	PlayerName          *string             `form:"PlayerName,omitempty" json:"PlayerName,omitempty"`
+	FromDate            *openapi_types.Date `form:"FromDate,omitempty" json:"FromDate,omitempty"`
+	ToDate              *openapi_types.Date `form:"ToDate,omitempty" json:"ToDate,omitempty"`
+	StateCode           *string             `form:"StateCode,omitempty" json:"StateCode,omitempty"`
+	City                *string             `form:"City,omitempty" json:"City,omitempty"`
+	DomesticStatus      *DomesticStatus     `form:"DomesticStatus,omitempty" json:"DomesticStatus,omitempty"`
+	IsWomens            *bool               `form:"IsWomens,omitempty" json:"IsWomens,omitempty"`
+	IsGrandPrix         *bool               `form:"IsGrandPrix,omitempty" json:"IsGrandPrix,omitempty"`
+	IsGrandPrixJr       *bool               `form:"IsGrandPrixJr,omitempty" json:"IsGrandPrixJr,omitempty"`
+	IsGrandPrixExtended *bool               `form:"IsGrandPrixExtended,omitempty" json:"IsGrandPrixExtended,omitempty"`
+	Offset              int32               `form:"Offset,omitempty" json:"Offset,omitempty,omitzero"`
+	Size                int32               `form:"Size,omitempty" json:"Size,omitempty,omitzero"`
 }
 
 // StartTopPlayerReportJobApplicationWildcardPlusJSONBody defines parameters for StartTopPlayerReportJob.
@@ -2666,8 +2666,8 @@ type StartTopPlayerReportJobJSONBody = TopPlayerReportOptions
 
 // GetReportParams defines parameters for GetReport.
 type GetReportParams struct {
-	Date        openapi_types.Date `form:"Date,omitempty" json:"Date,omitempty,omitzero"`
-	Provisional bool               `form:"Provisional,omitempty" json:"Provisional,omitempty,omitzero"`
+	Date        *openapi_types.Date `form:"Date,omitempty" json:"Date,omitempty"`
+	Provisional *bool               `form:"Provisional,omitempty" json:"Provisional,omitempty"`
 }
 
 // UploadMultipartRequestBody defines body for Upload for multipart/form-data ContentType.
@@ -4423,20 +4423,28 @@ func NewGetAffiliatesPageRequest(server string, params *GetAffiliatesPageParams)
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Fuzzy", params.Fuzzy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Fuzzy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Fuzzy", *params.Fuzzy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "StateCode", params.StateCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.StateCode != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "StateCode", *params.StateCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
 		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "SortBy", params.SortBy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
@@ -4554,92 +4562,136 @@ func NewGetAffiliateRatedEventsRequest(server string, affiliateId AffiliateID, p
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Name", params.Name, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Name != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Name", *params.Name, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "FromDate", params.FromDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.FromDate != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "FromDate", *params.FromDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ToDate", params.ToDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.ToDate != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ToDate", *params.ToDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "StateCode", params.StateCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.StateCode != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "StateCode", *params.StateCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "City", params.City, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.City != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "City", *params.City, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Affiliate", params.Affiliate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Affiliate != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Affiliate", *params.Affiliate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ScholasticCode", params.ScholasticCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.ScholasticCode != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ScholasticCode", *params.ScholasticCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Women", params.Women, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Women != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Women", *params.Women, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "MinSize", params.MinSize, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int32"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.MinSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "MinSize", *params.MinSize, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int32"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "RatingSource", params.RatingSource, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.RatingSource != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "RatingSource", *params.RatingSource, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "DomesticStatus", params.DomesticStatus, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.DomesticStatus != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "DomesticStatus", *params.DomesticStatus, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
 		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "SortBy", params.SortBy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
@@ -4752,28 +4804,40 @@ func NewGetGrandPrixSectionsRequest(server string, year int32, params *GetGrandP
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Search", params.Search, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Search != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Search", *params.Search, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "StateCode", params.StateCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.StateCode != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "StateCode", *params.StateCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "IsWomen", params.IsWomen, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.IsWomen != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "IsWomen", *params.IsWomen, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
 		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "SortBy", params.SortBy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
@@ -4850,28 +4914,40 @@ func NewGetGrandPrixStandingsRequest(server string, params *GetGrandPrixStanding
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Search", params.Search, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Search != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Search", *params.Search, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "StateCode", params.StateCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.StateCode != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "StateCode", *params.StateCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "IsWomen", params.IsWomen, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.IsWomen != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "IsWomen", *params.IsWomen, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
 		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "SortBy", params.SortBy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
@@ -4948,84 +5024,124 @@ func NewGetMembersPageRequest(server string, params *GetMembersPageParams) (*htt
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Fuzzy", params.Fuzzy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Fuzzy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Fuzzy", *params.Fuzzy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "RatingSource", params.RatingSource, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.RatingSource != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "RatingSource", *params.RatingSource, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "StateRep", params.StateRep, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.StateRep != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "StateRep", *params.StateRep, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Jurisdiction", params.Jurisdiction, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Jurisdiction != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Jurisdiction", *params.Jurisdiction, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Gender", params.Gender, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Gender != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Gender", *params.Gender, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Fide", params.Fide, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Fide != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Fide", *params.Fide, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Domestic", params.Domestic, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Domestic != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Domestic", *params.Domestic, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "MinRating", params.MinRating, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int32"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.MinRating != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "MinRating", *params.MinRating, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int32"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "MaxRating", params.MaxRating, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int32"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.MaxRating != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "MaxRating", *params.MaxRating, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int32"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Ranked", params.Ranked, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Ranked != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Ranked", *params.Ranked, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
 		if params.Status != nil {
@@ -5040,76 +5156,112 @@ func NewGetMembersPageRequest(server string, params *GetMembersPageParams) (*htt
 
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ExpireStartDate", params.ExpireStartDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.ExpireStartDate != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ExpireStartDate", *params.ExpireStartDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ExpireEndDate", params.ExpireEndDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.ExpireEndDate != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ExpireEndDate", *params.ExpireEndDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "UsePeak", params.UsePeak, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.UsePeak != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "UsePeak", *params.UsePeak, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "RatingCutoffFrom", params.RatingCutoffFrom, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.RatingCutoffFrom != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "RatingCutoffFrom", *params.RatingCutoffFrom, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "RatingCutoffTo", params.RatingCutoffTo, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.RatingCutoffTo != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "RatingCutoffTo", *params.RatingCutoffTo, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "UseUnofficialRatings", params.UseUnofficialRatings, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.UseUnofficialRatings != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "UseUnofficialRatings", *params.UseUnofficialRatings, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "MinAge", params.MinAge, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int32"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.MinAge != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "MinAge", *params.MinAge, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int32"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "MaxAge", params.MaxAge, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int32"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.MaxAge != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "MaxAge", *params.MaxAge, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int32"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "AgeDate", params.AgeDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.AgeDate != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "AgeDate", *params.AgeDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
 		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "SortBy", params.SortBy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
@@ -5220,12 +5372,16 @@ func NewGetUnofficialRankLookupRequest(server string, ratingSource RatingType, p
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "jurisdiction", params.Jurisdiction, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Jurisdiction != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "jurisdiction", *params.Jurisdiction, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
 		if encoded := queryValues.Encode(); encoded != "" {
@@ -5901,92 +6057,136 @@ func NewGetPendingEventsPageRequest(server string, params *GetPendingEventsPageP
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Name", params.Name, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Name != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Name", *params.Name, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "FromDate", params.FromDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.FromDate != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "FromDate", *params.FromDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ToDate", params.ToDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.ToDate != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ToDate", *params.ToDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "StateCode", params.StateCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.StateCode != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "StateCode", *params.StateCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "City", params.City, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.City != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "City", *params.City, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ScholasticCode", params.ScholasticCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.ScholasticCode != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ScholasticCode", *params.ScholasticCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Women", params.Women, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Women != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Women", *params.Women, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "GrandPrix", params.GrandPrix, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.GrandPrix != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "GrandPrix", *params.GrandPrix, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "MinSize", params.MinSize, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int32"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.MinSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "MinSize", *params.MinSize, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int32"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "TimeControl", params.TimeControl, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.TimeControl != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "TimeControl", *params.TimeControl, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "RatingSource", params.RatingSource, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.RatingSource != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "RatingSource", *params.RatingSource, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
 		if params.Status != nil {
@@ -6013,28 +6213,40 @@ func NewGetPendingEventsPageRequest(server string, params *GetPendingEventsPageP
 
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "DomesticStatus", params.DomesticStatus, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.DomesticStatus != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "DomesticStatus", *params.DomesticStatus, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "OwnerId", params.OwnerId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.OwnerId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "OwnerId", *params.OwnerId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "AffiliateId", params.AffiliateId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.AffiliateId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "AffiliateId", *params.AffiliateId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
 		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "SortBy", params.SortBy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
@@ -7056,12 +7268,16 @@ func NewListUnplayedRoundsRequest(server string, eventId EventID, sectionId Sect
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "roundNumber", params.RoundNumber, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int32"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.RoundNumber != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "roundNumber", *params.RoundNumber, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int32"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
 		if encoded := queryValues.Encode(); encoded != "" {
@@ -7192,12 +7408,16 @@ func NewDeleteUnplayedRoundRequest(server string, eventId EventID, sectionId Sec
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "playerId", params.PlayerId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.PlayerId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "playerId", *params.PlayerId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
 		if encoded := queryValues.Encode(); encoded != "" {
@@ -7352,20 +7572,28 @@ func NewListRoundUnpairedPlayersRequest(server string, eventId EventID, sectionI
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Fuzzy", params.Fuzzy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Fuzzy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Fuzzy", *params.Fuzzy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "State", params.State, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.State != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "State", *params.State, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
 		if params.WithValidation != nil {
@@ -7776,20 +8004,28 @@ func NewListPendingPlayersRequest(server string, pendingEventId EventID, section
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Fuzzy", params.Fuzzy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Fuzzy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Fuzzy", *params.Fuzzy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "State", params.State, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.State != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "State", *params.State, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
 		if params.WithValidation != nil {
@@ -8111,12 +8347,16 @@ func NewGetPromoCodesPageRequest(server string, params *GetPromoCodesPageParams)
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "fuzzy", params.Fuzzy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Fuzzy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "fuzzy", *params.Fuzzy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
 		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Offset", params.Offset, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int32"}); err != nil {
@@ -8245,92 +8485,136 @@ func NewGetRatedEventsPageRequest(server string, params *GetRatedEventsPageParam
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Name", params.Name, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Name != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Name", *params.Name, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "FromDate", params.FromDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.FromDate != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "FromDate", *params.FromDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ToDate", params.ToDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.ToDate != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ToDate", *params.ToDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "StateCode", params.StateCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.StateCode != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "StateCode", *params.StateCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "City", params.City, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.City != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "City", *params.City, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ScholasticCode", params.ScholasticCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.ScholasticCode != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ScholasticCode", *params.ScholasticCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Women", params.Women, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Women != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Women", *params.Women, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "GrandPrix", params.GrandPrix, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.GrandPrix != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "GrandPrix", *params.GrandPrix, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "MinSize", params.MinSize, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int32"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.MinSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "MinSize", *params.MinSize, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int32"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "RatingSource", params.RatingSource, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.RatingSource != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "RatingSource", *params.RatingSource, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "DomesticStatus", params.DomesticStatus, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.DomesticStatus != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "DomesticStatus", *params.DomesticStatus, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
 		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "SortBy", params.SortBy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
@@ -8588,92 +8872,136 @@ func NewGetRatedSectionsPageRequest(server string, params *GetRatedSectionsPageP
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "EventName", params.EventName, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.EventName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "EventName", *params.EventName, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "PlayerName", params.PlayerName, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.PlayerName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "PlayerName", *params.PlayerName, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "FromDate", params.FromDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.FromDate != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "FromDate", *params.FromDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ToDate", params.ToDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.ToDate != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ToDate", *params.ToDate, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "StateCode", params.StateCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.StateCode != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "StateCode", *params.StateCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "City", params.City, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.City != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "City", *params.City, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "DomesticStatus", params.DomesticStatus, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.DomesticStatus != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "DomesticStatus", *params.DomesticStatus, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "IsWomens", params.IsWomens, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.IsWomens != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "IsWomens", *params.IsWomens, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "IsGrandPrix", params.IsGrandPrix, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.IsGrandPrix != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "IsGrandPrix", *params.IsGrandPrix, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "IsGrandPrixJr", params.IsGrandPrixJr, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.IsGrandPrixJr != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "IsGrandPrixJr", *params.IsGrandPrixJr, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "IsGrandPrixExtended", params.IsGrandPrixExtended, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.IsGrandPrixExtended != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "IsGrandPrixExtended", *params.IsGrandPrixExtended, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
 		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Offset", params.Offset, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: "int32"}); err != nil {
@@ -8819,20 +9147,28 @@ func NewGetReportRequest(server string, definitionId string, params *GetReportPa
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Date", params.Date, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Date != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Date", *params.Date, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Provisional", params.Provisional, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
-			return nil, err
-		} else {
-			for _, qp := range strings.Split(queryFrag, "&") {
-				rawQueryFragments = append(rawQueryFragments, qp)
+		if params.Provisional != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "Provisional", *params.Provisional, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
 			}
+
 		}
 
 		if encoded := queryValues.Encode(); encoded != "" {

@@ -227,6 +227,273 @@ actions:
   - target: $.paths./api/v1/members/{memberId}/games.get.parameters[6].schema
     update:
       x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/affiliates.get.parameters[0].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/affiliates.get.parameters[1].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/affiliates/{affiliateId}/events.get.parameters[1].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/affiliates/{affiliateId}/events.get.parameters[2].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/affiliates/{affiliateId}/events.get.parameters[3].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/affiliates/{affiliateId}/events.get.parameters[4].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/affiliates/{affiliateId}/events.get.parameters[5].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/affiliates/{affiliateId}/events.get.parameters[6].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/affiliates/{affiliateId}/events.get.parameters[7].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/affiliates/{affiliateId}/events.get.parameters[8].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/affiliates/{affiliateId}/events.get.parameters[9].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/affiliates/{affiliateId}/events.get.parameters[10].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/affiliates/{affiliateId}/events.get.parameters[11].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/grandprix/standings.get.parameters[0].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/grandprix/standings.get.parameters[1].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/grandprix/standings.get.parameters[2].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/grandprix/sections/{year}.get.parameters[1].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/grandprix/sections/{year}.get.parameters[2].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/grandprix/sections/{year}.get.parameters[3].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members.get.parameters[0].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members.get.parameters[1].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members.get.parameters[2].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members.get.parameters[3].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members.get.parameters[4].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members.get.parameters[5].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members.get.parameters[6].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members.get.parameters[7].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members.get.parameters[8].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members.get.parameters[9].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members.get.parameters[10].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members.get.parameters[11].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members.get.parameters[12].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members.get.parameters[13].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members.get.parameters[14].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members.get.parameters[15].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members.get.parameters[16].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members.get.parameters[17].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members.get.parameters[18].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members.get.parameters[19].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members/unofficial-rank-lookup/{ratingSource}.get.parameters[1].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events.get.parameters[0].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events.get.parameters[1].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events.get.parameters[2].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events.get.parameters[3].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events.get.parameters[4].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events.get.parameters[5].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events.get.parameters[6].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events.get.parameters[7].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events.get.parameters[8].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events.get.parameters[9].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events.get.parameters[10].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events.get.parameters[11].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events.get.parameters[12].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events.get.parameters[13].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events.get.parameters[14].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events.get.parameters[15].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{sectionId}/players.get.parameters[2].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{sectionId}/players.get.parameters[3].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{sectionId}/players.get.parameters[4].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}/rounds/{roundNumber}/unpaired-players.get.parameters[3].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}/rounds/{roundNumber}/unpaired-players.get.parameters[4].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}/rounds/{roundNumber}/unpaired-players.get.parameters[5].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}/byes-skips.get.parameters[2].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}/byes-skips/{roundNumber}.delete.parameters[3].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/promo-codes.get.parameters[0].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-events.get.parameters[0].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-events.get.parameters[1].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-events.get.parameters[2].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-events.get.parameters[3].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-events.get.parameters[4].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-events.get.parameters[5].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-events.get.parameters[6].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-events.get.parameters[7].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-events.get.parameters[8].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-events.get.parameters[9].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-events.get.parameters[10].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-sections.get.parameters[0].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-sections.get.parameters[1].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-sections.get.parameters[2].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-sections.get.parameters[3].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-sections.get.parameters[4].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-sections.get.parameters[5].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-sections.get.parameters[6].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-sections.get.parameters[7].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-sections.get.parameters[8].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-sections.get.parameters[9].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/rated-sections.get.parameters[10].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/top-players/{definitionId}.get.parameters[1].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/top-players/{definitionId}.get.parameters[2].schema
+    update:
+      x-go-type-skip-optional-pointer: false
   - target: $.paths./api/v1/members/{memberId}/top-player-reports.get.parameters[0].schema
     update:
       x-go-type: MemberID
