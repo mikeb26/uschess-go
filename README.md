@@ -140,7 +140,7 @@ Available helpers include:
 - `GetAllGrandPrixStandings` and `GetAllGrandPrixSections`
 - `GetAllPendingEvents` and `GetAllPendingPlayers`
 
-These methods may issue many requests and return large result sets. Prefer the generated page methods when you need filters, a bounded result set, or direct control over page size and offsets.
+These methods may issue many requests and return large result sets. Prefer the generated page methods when you need a bounded result set or direct control over offsets. Helpers that accept parameter structs, including `GetAllMemberRatedGames`, also support the endpoint's filters and page-size option.
 
 ### Custom HTTP behavior
 

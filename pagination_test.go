@@ -99,7 +99,7 @@ func TestGetAllWrappersRequestPageSize(t *testing.T) {
 		{
 			name: "member rated games",
 			call: func(editor RequestEditorFn) error {
-				_, err := client.GetAllMemberRatedGames(context.Background(), "12345678", editor)
+				_, err := client.GetAllMemberRatedGames(context.Background(), "12345678", nil, editor)
 				return err
 			},
 		},
@@ -161,6 +161,41 @@ func TestGetAllWrappersRequestPageSize(t *testing.T) {
 				t.Errorf("Size = %q; want %q", got, "100")
 			}
 		})
+	}
+}
+
+func TestGetAllMemberRatedGamesUsesParams(t *testing.T) {
+	client, err := NewClientWithResponses("https://example.test")
+	if err != nil {
+		t.Fatalf("NewClientWithResponses returned an error: %v", err)
+	}
+
+	stopRequest := errors.New("stop request")
+	params := &GetMemberRatedGamesParams{
+		RatingSource: RatingTypeR,
+		OpponentId:   "87654321",
+		PreRating:    1500,
+		PostRating:   1520,
+		Size:         25,
+	}
+	_, err = client.GetAllMemberRatedGames(context.Background(), "12345678", params, func(_ context.Context, req *http.Request) error {
+		query := req.URL.Query()
+		for key, want := range map[string]string{
+			"RatingSource": "R",
+			"OpponentId":   "87654321",
+			"PreRating":    "1500",
+			"PostRating":   "1520",
+			"Size":         "25",
+			"Offset":       "0",
+		} {
+			if got := query.Get(key); got != want {
+				t.Errorf("%s = %q; want %q", key, got, want)
+			}
+		}
+		return stopRequest
+	})
+	if !errors.Is(err, stopRequest) {
+		t.Fatalf("GetAllMemberRatedGames error = %v; want request editor error", err)
 	}
 }
 
