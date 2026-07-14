@@ -1,0 +1,586 @@
+overlay: 1.0.0
+info:
+  title: US Chess API Go type overrides
+  version: 1.0.0
+actions:
+  # Drop the API's DTO suffix from all generated Go model names. The original
+  # schema names remain unchanged, so this affects Go identifiers only.
+  - target: $.components.schemas.AffiliateDto
+    update: {x-go-name: Affiliate}
+  - target: $.components.schemas.AffiliateDtoPage
+    update: {x-go-name: AffiliatePage}
+  - target: $.components.schemas.EventComplianceDto
+    update: {x-go-name: EventCompliance}
+  - target: $.components.schemas.FieldWithValidationDto
+    update: {x-go-name: FieldWithValidation}
+  - target: $.components.schemas.GrandPrixPlayerDto
+    update: {x-go-name: GrandPrixPlayer}
+  - target: $.components.schemas.GrandPrixPlayerDtoPage
+    update: {x-go-name: GrandPrixPlayerPage}
+  - target: $.components.schemas.GrandPrixSectionDto
+    update: {x-go-name: GrandPrixSection}
+  - target: $.components.schemas.GrandPrixSectionDtoPage
+    update: {x-go-name: GrandPrixSectionPage}
+  - target: $.components.schemas.GrandPrixWinnerDto
+    update: {x-go-name: GrandPrixWinner}
+  - target: $.components.schemas.MaxRankDto
+    update: {x-go-name: MaxRank}
+  - target: $.components.schemas.MemberAwardDto
+    update: {x-go-name: MemberAward}
+  - target: $.components.schemas.MemberAwardDtoPage
+    update: {x-go-name: MemberAwardPage}
+  - target: $.components.schemas.MemberDetailDto
+    update: {x-go-name: MemberDetail}
+  - target: $.components.schemas.MemberDetailDtoPage
+    update: {x-go-name: MemberDetailPage}
+  - target: $.components.schemas.MemberDirectorshipDto
+    update: {x-go-name: MemberDirectorship}
+  - target: $.components.schemas.MemberDirectorshipDtoPage
+    update: {x-go-name: MemberDirectorshipPage}
+  - target: $.components.schemas.MemberDto
+    update: {x-go-name: Member}
+  - target: $.components.schemas.MemberOpponentGamePlayerDto
+    update: {x-go-name: MemberOpponentGamePlayer}
+  - target: $.components.schemas.MemberPlayerGamePlayerDto
+    update: {x-go-name: MemberPlayerGamePlayer}
+  - target: $.components.schemas.MemberRatedGameDto
+    update: {x-go-name: MemberRatedGame}
+  - target: $.components.schemas.MemberRatedGameDtoPage
+    update: {x-go-name: MemberRatedGamePage}
+  - target: $.components.schemas.MemberRatedSectionDto
+    update: {x-go-name: MemberRatedSection}
+  - target: $.components.schemas.MemberRatedSectionDtoPage
+    update: {x-go-name: MemberRatedSectionPage}
+  - target: $.components.schemas.MemberRatingDto
+    update: {x-go-name: MemberRating}
+  - target: $.components.schemas.MinimalAffiliateDto
+    update: {x-go-name: MinimalAffiliate}
+  - target: $.components.schemas.MinimalRatedEventDto
+    update: {x-go-name: MinimalRatedEvent}
+  - target: $.components.schemas.MinimalRatingRecordDto
+    update: {x-go-name: MinimalRatingRecord}
+  - target: $.components.schemas.MinimalSectionDto
+    update: {x-go-name: MinimalSection}
+  - target: $.components.schemas.NormDto
+    update: {x-go-name: Norm}
+  - target: $.components.schemas.NormDtoItemsEnvelope
+    update: {x-go-name: NormItemsEnvelope}
+  - target: $.components.schemas.OfficialCreateDto
+    update: {x-go-name: OfficialCreate}
+  - target: $.components.schemas.OfficialDto
+    update: {x-go-name: Official}
+  - target: $.components.schemas.OfficialValidationDto
+    update: {x-go-name: OfficialValidation}
+  - target: $.components.schemas.PendingEventCreateDto
+    update: {x-go-name: PendingEventCreate}
+  - target: $.components.schemas.PendingEventDetailDto
+    update: {x-go-name: PendingEventDetail}
+  - target: $.components.schemas.PendingEventDto
+    update: {x-go-name: PendingEvent}
+  - target: $.components.schemas.PendingEventDtoPage
+    update: {x-go-name: PendingEventPage}
+  - target: $.components.schemas.PendingEventUpdateDto
+    update: {x-go-name: PendingEventUpdate}
+  - target: $.components.schemas.PendingEventValidationLevelDto
+    update: {x-go-name: PendingEventValidationLevel}
+  - target: $.components.schemas.PendingEventValidationResultDto
+    update: {x-go-name: PendingEventValidationResult}
+  - target: $.components.schemas.PendingGameCreateDto
+    update: {x-go-name: PendingGameCreate}
+  - target: $.components.schemas.PendingGameDto
+    update: {x-go-name: PendingGame}
+  - target: $.components.schemas.PendingGamePlayerDto
+    update: {x-go-name: PendingGamePlayer}
+  - target: $.components.schemas.PendingGamePlayerUpdateDto
+    update: {x-go-name: PendingGamePlayerUpdate}
+  - target: $.components.schemas.PendingGamePlayerValidationDto
+    update: {x-go-name: PendingGamePlayerValidation}
+  - target: $.components.schemas.PendingGameUpdateDto
+    update: {x-go-name: PendingGameUpdate}
+  - target: $.components.schemas.PendingGameValidationDto
+    update: {x-go-name: PendingGameValidation}
+  - target: $.components.schemas.PendingPlayerCreateDto
+    update: {x-go-name: PendingPlayerCreate}
+  - target: $.components.schemas.PendingPlayerDto
+    update: {x-go-name: PendingPlayer}
+  - target: $.components.schemas.PendingPlayerDtoPage
+    update: {x-go-name: PendingPlayerPage}
+  - target: $.components.schemas.PendingPlayerUpdateDto
+    update: {x-go-name: PendingPlayerUpdate}
+  - target: $.components.schemas.PendingPlayerValidationDto
+    update: {x-go-name: PendingPlayerValidation}
+  - target: $.components.schemas.PendingSectionCreateDto
+    update: {x-go-name: PendingSectionCreate}
+  - target: $.components.schemas.PendingSectionDetailDto
+    update: {x-go-name: PendingSectionDetail}
+  - target: $.components.schemas.PendingSectionUpdateDto
+    update: {x-go-name: PendingSectionUpdate}
+  - target: $.components.schemas.PendingSectionValidationDto
+    update: {x-go-name: PendingSectionValidation}
+  - target: $.components.schemas.PromoCodeDto
+    update: {x-go-name: PromoCode}
+  - target: $.components.schemas.PromoCodeDtoPage
+    update: {x-go-name: PromoCodePage}
+  - target: $.components.schemas.RatedEventDetailDto
+    update: {x-go-name: RatedEventDetail}
+  - target: $.components.schemas.RatedEventDto
+    update: {x-go-name: RatedEvent}
+  - target: $.components.schemas.RatedEventDtoPage
+    update: {x-go-name: RatedEventPage}
+  - target: $.components.schemas.RatedSectionDto
+    update: {x-go-name: RatedSection}
+  - target: $.components.schemas.RatedSectionDtoPage
+    update: {x-go-name: RatedSectionPage}
+  - target: $.components.schemas.RatingRecordDto
+    update: {x-go-name: RatingRecord}
+  - target: $.components.schemas.RatingSupplementDto
+    update: {x-go-name: RatingSupplement}
+  - target: $.components.schemas.RatingSupplementDtoPage
+    update: {x-go-name: RatingSupplementPage}
+  - target: $.components.schemas.RatingSupplementSystemDto
+    update: {x-go-name: RatingSupplementSystem}
+  - target: $.components.schemas.ReviewCreateDto
+    update: {x-go-name: ReviewCreate}
+  - target: $.components.schemas.ReviewUpdateDto
+    update: {x-go-name: ReviewUpdate}
+  - target: $.components.schemas.SectionDetailDto
+    update: {x-go-name: SectionDetail}
+  - target: $.components.schemas.StandingsDto
+    update: {x-go-name: Standings}
+  - target: $.components.schemas.StandingsDtoPage
+    update: {x-go-name: StandingsPage}
+  - target: $.components.schemas.StandingsRoundDto
+    update: {x-go-name: StandingsRound}
+  - target: $.components.schemas.TopPlayerDto
+    update: {x-go-name: TopPlayer}
+  - target: $.components.schemas.TopPlayerReportDefinitionDto
+    update: {x-go-name: TopPlayerReportDefinition}
+  - target: $.components.schemas.TopPlayerReportDefinitionDtoItemsEnvelope
+    update: {x-go-name: TopPlayerReportDefinitionItemsEnvelope}
+  - target: $.components.schemas.TopPlayerReportDto
+    update: {x-go-name: TopPlayerReport}
+  - target: $.components.schemas.TopPlayerReportDtoPage
+    update: {x-go-name: TopPlayerReportPage}
+  - target: $.components.schemas.TopPlayerReportOptionsDto
+    update: {x-go-name: TopPlayerReportOptions}
+  - target: $.components.schemas.UnofficialRankLookupDto
+    update: {x-go-name: UnofficialRankLookup}
+  - target: $.components.schemas.UnplayedRoundCreateDto
+    update: {x-go-name: UnplayedRoundCreate}
+  - target: $.components.schemas.UnplayedRoundDto
+    update: {x-go-name: UnplayedRound}
+  - target: $.components.schemas.ValidationInfoDto
+    update: {x-go-name: ValidationInfo}
+
+  # Member identifiers accepted by the Members API.
+  - target: $.paths./api/v1/members/{memberId}.get.parameters[0].schema
+    update:
+      x-go-type: MemberID
+  - target: $.paths./api/v1/members/{memberId}/rating-supplements.get.parameters[0].schema
+    update:
+      x-go-type: MemberID
+  - target: $.paths./api/v1/members/{memberId}/events.get.parameters[0].schema
+    update:
+      x-go-type: MemberID
+  - target: $.paths./api/v1/members/{memberId}/sections.get.parameters[0].schema
+    update:
+      x-go-type: MemberID
+  - target: $.paths./api/v1/members/{memberId}/directorships.get.parameters[0].schema
+    update:
+      x-go-type: MemberID
+  - target: $.paths./api/v1/members/{memberId}/awards.get.parameters[0].schema
+    update:
+      x-go-type: MemberID
+  - target: $.paths./api/v1/members/{memberId}/games.get.parameters[0].schema
+    update:
+      x-go-type: MemberID
+  - target: $.paths./api/v1/members/{memberId}/games.get.parameters[4].schema
+    update:
+      x-go-type: MemberID
+  - target: $.paths./api/v1/members/{memberId}/top-player-reports.get.parameters[0].schema
+    update:
+      x-go-type: MemberID
+  - target: $.paths./api/v1/members/{memberId}/norms.get.parameters[0].schema
+    update:
+      x-go-type: MemberID
+  - target: $.components.schemas.OfficialCreateDto.properties.memberId
+    update:
+      x-go-type: MemberID
+  - target: $.components.schemas.OfficialDto.properties.memberId
+    update:
+      x-go-type: MemberID
+  - target: $.components.schemas.OfficialUpdate.properties.memberId
+    update:
+      x-go-type: MemberID
+  - target: $.components.schemas.PendingEventDetailDto.properties.createdByMemberId
+    update:
+      x-go-type: MemberID
+  - target: $.components.schemas.PendingEventDetailDto.properties.submittedByMemberId
+    update:
+      x-go-type: MemberID
+  - target: $.components.schemas.PendingEventDto.properties.createdByMemberId
+    update:
+      x-go-type: MemberID
+  - target: $.components.schemas.PendingEventDto.properties.submittedByMemberId
+    update:
+      x-go-type: MemberID
+  - target: $.components.schemas.PendingGamePlayerDto.properties.memberId
+    update:
+      x-go-type: MemberID
+  - target: $.components.schemas.PendingPlayerCreateDto.properties.memberId
+    update:
+      x-go-type: MemberID
+  - target: $.components.schemas.PendingPlayerDto.properties.memberId
+    update:
+      x-go-type: MemberID
+  - target: $.components.schemas.PendingPlayerUpdateDto.properties.memberId
+    update:
+      x-go-type: MemberID
+  - target: $.components.schemas.StandingsDto.properties.memberId
+    update:
+      x-go-type: MemberID
+  - target: $.components.schemas.StandingsRoundDto.properties.opponentMemberId
+    update:
+      x-go-type: MemberID
+  - target: $.components.schemas.UnplayedRoundDto.properties.memberId
+    update:
+      x-go-type: MemberID
+  # Event identifiers accepted by the Pending Events and Rated Events APIs.
+  - target: $.components.schemas.MinimalRatingRecordDto.properties.eventId
+    update:
+      x-go-type: EventID
+  - target: $.components.schemas.PendingEventDetailDto.properties.parallelEventId
+    update:
+      x-go-type: EventID
+  - target: $.components.schemas.PendingSectionDetailDto.properties.newEventId
+    update:
+      x-go-type: EventID
+  - target: $.components.schemas.RatedSectionDto.properties.eventId
+    update:
+      x-go-type: EventID
+  # Affiliate identifiers accepted by the Affiliates and Pending Events APIs.
+  - target: $.paths./api/v1/affiliates/{affiliateId}.get.parameters[0].schema
+    update:
+      x-go-type: AffiliateID
+  - target: $.paths./api/v1/affiliates/{affiliateId}/events.get.parameters[0].schema
+    update:
+      x-go-type: AffiliateID
+  - target: $.paths./api/v1/pending-events.get.parameters[15].schema
+    update:
+      x-go-type: AffiliateID
+  - target: $.components.schemas.PendingEventUpdateDto.properties.affiliateId
+    update:
+      x-go-type: AffiliateID
+  - target: $.paths./api/v1/pending-events/{eventId}.put.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}.get.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}.delete.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/compliance.put.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/players.get.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/games.get.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/officials.get.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/officials.post.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/officials/{officialId}.get.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/officials/{officialId}.put.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/officials/{officialId}.delete.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/validate.put.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/review.post.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/review.put.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{pendingSectionId}/games.get.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{pendingSectionId}/games.post.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{pendingSectionId}/games/{pendingGameId}.get.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{pendingSectionId}/games/{pendingGameId}.put.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{pendingSectionId}/games/{pendingGameId}.delete.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{sectionId}/players.get.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{sectionId}/players.post.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{sectionId}/players/{playerId}.get.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{sectionId}/players/{playerId}.put.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{sectionId}/players/{playerId}.delete.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/sections.get.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/sections.post.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}.get.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}.delete.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}.put.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}/rounds.post.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}/rounds/{roundNumber}.delete.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}/byes-skips.post.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}/byes-skips.get.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}/byes-skips/{roundNumber}.delete.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}/rounds/{roundNumber}/unpaired-players.get.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/rated-events/{eventId}.get.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/rated-events/{eventId}/officials.get.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/rated-events/{eventId}/sections/{sectionNumber}.get.parameters[0].schema
+    update:
+      x-go-type: EventID
+  - target: $.paths./api/v1/rated-events/{eventId}/sections/{sectionNumber}/standings.get.parameters[0].schema
+    update:
+      x-go-type: EventID
+  # Section identifiers accepted by the Pending Events API.
+  - target: $.paths./api/v1/pending-events/by-sectionId/{sectionId}.get.parameters[0].schema
+    update:
+      x-go-type: SectionID
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{pendingSectionId}/games.get.parameters[1].schema
+    update:
+      x-go-type: SectionID
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{pendingSectionId}/games.post.parameters[1].schema
+    update:
+      x-go-type: SectionID
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{pendingSectionId}/games/{pendingGameId}.get.parameters[1].schema
+    update:
+      x-go-type: SectionID
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{pendingSectionId}/games/{pendingGameId}.put.parameters[1].schema
+    update:
+      x-go-type: SectionID
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{pendingSectionId}/games/{pendingGameId}.delete.parameters[1].schema
+    update:
+      x-go-type: SectionID
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{sectionId}/players.get.parameters[1].schema
+    update:
+      x-go-type: SectionID
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{sectionId}/players.post.parameters[1].schema
+    update:
+      x-go-type: SectionID
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{sectionId}/players/{playerId}.get.parameters[1].schema
+    update:
+      x-go-type: SectionID
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{sectionId}/players/{playerId}.put.parameters[1].schema
+    update:
+      x-go-type: SectionID
+  - target: $.paths./api/v1/pending-events/{pendingEventId}/sections/{sectionId}/players/{playerId}.delete.parameters[1].schema
+    update:
+      x-go-type: SectionID
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}.get.parameters[1].schema
+    update:
+      x-go-type: SectionID
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}.delete.parameters[1].schema
+    update:
+      x-go-type: SectionID
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}.put.parameters[1].schema
+    update:
+      x-go-type: SectionID
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}/rounds.post.parameters[1].schema
+    update:
+      x-go-type: SectionID
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}/rounds/{roundNumber}.delete.parameters[1].schema
+    update:
+      x-go-type: SectionID
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}/byes-skips.post.parameters[1].schema
+    update:
+      x-go-type: SectionID
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}/byes-skips.get.parameters[1].schema
+    update:
+      x-go-type: SectionID
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}/byes-skips/{roundNumber}.delete.parameters[1].schema
+    update:
+      x-go-type: SectionID
+  - target: $.paths./api/v1/pending-events/{eventId}/sections/{sectionId}/rounds/{roundNumber}/unpaired-players.get.parameters[1].schema
+    update:
+      x-go-type: SectionID
+  - target: $.components.schemas.OfficialCreateDto.properties.sectionId
+    update:
+      x-go-type: SectionID
+  - target: $.components.schemas.OfficialDto.properties.sectionId
+    update:
+      x-go-type: SectionID
+  - target: $.components.schemas.PendingGameDto.properties.sectionId
+    update:
+      x-go-type: SectionID
+  - target: $.components.schemas.PendingGamePlayerDto.properties.sectionId
+    update:
+      x-go-type: SectionID
+  - target: $.components.schemas.UnplayedRoundDto.properties.sectionId
+    update:
+      x-go-type: SectionID
+  # FIDE identifiers returned in member, player, and standings data.
+  - target: $.components.schemas.MemberDetailDto.properties.fideId
+    update:
+      x-go-type: FIDEID
+  - target: $.components.schemas.PendingPlayerDto.properties.fideId
+    update:
+      x-go-type: FIDEID
+  - target: $.components.schemas.StandingsDto.properties.fideId
+    update:
+      x-go-type: FIDEID
+  # Bare IDs whose containing DTO unambiguously identifies an existing ID type.
+  - target: $.components.schemas.AffiliateDto.properties.id
+    update:
+      x-go-type: AffiliateID
+  - target: $.components.schemas.MinimalAffiliateDto.properties.id
+    update:
+      x-go-type: AffiliateID
+  - target: $.components.schemas.GrandPrixPlayerDto.properties.id
+    update:
+      x-go-type: MemberID
+  - target: $.components.schemas.GrandPrixWinnerDto.properties.id
+    update:
+      x-go-type: MemberID
+  - target: $.components.schemas.MemberDetailDto.properties.id
+    update:
+      x-go-type: MemberID
+  - target: $.components.schemas.MemberDto.properties.id
+    update:
+      x-go-type: MemberID
+  - target: $.components.schemas.MemberOpponentGamePlayerDto.properties.id
+    update:
+      x-go-type: MemberID
+  - target: $.components.schemas.TopPlayerDto.properties.id
+    update:
+      x-go-type: MemberID
+  - target: $.components.schemas.MinimalRatedEventDto.properties.id
+    update:
+      x-go-type: EventID
+  - target: $.components.schemas.PendingEventDetailDto.properties.id
+    update:
+      x-go-type: EventID
+  - target: $.components.schemas.PendingEventDto.properties.id
+    update:
+      x-go-type: EventID
+  - target: $.components.schemas.RatedEventDetailDto.properties.id
+    update:
+      x-go-type: EventID
+  - target: $.components.schemas.RatedEventDto.properties.id
+    update:
+      x-go-type: EventID
+  - target: $.components.schemas.GrandPrixSectionDto.properties.id
+    update:
+      x-go-type: SectionID
+  - target: $.components.schemas.MemberRatedSectionDto.properties.id
+    update:
+      x-go-type: SectionID
+  - target: $.components.schemas.MinimalSectionDto.properties.id
+    update:
+      x-go-type: SectionID
+  - target: $.components.schemas.PendingSectionDetailDto.properties.id
+    update:
+      x-go-type: SectionID
+  - target: $.components.schemas.RatedSectionDto.properties.id
+    update:
+      x-go-type: SectionID
+  - target: $.components.schemas.SectionDetailDto.properties.id
+    update:
+      x-go-type: SectionID
+  # Use concise names for rating-system enum types in the generated client.
+  - target: $.components.schemas.RatingSource
+    update:
+      x-go-name: RatingType
+  - target: $.components.schemas.SectionRatingSystem
+    update:
+      x-go-name: SectionRatingType
+  # Use RatingType consistently for fields represented by either rating enum.
+  - target: $.components.schemas.MaxRankDto.properties.ratingSource
+    update:
+      x-go-name: RatingType
+  - target: $.components.schemas.MemberAwardDto.properties.ratingSource
+    update:
+      x-go-name: RatingType
+  - target: $.components.schemas.MemberRatedGameDto.properties.ratingSystem
+    update:
+      x-go-name: RatingType
+  - target: $.components.schemas.MemberRatedSectionDto.properties.ratingSystem
+    update:
+      x-go-name: RatingType
+  - target: $.components.schemas.MemberRatingDto.properties.ratingSystem
+    update:
+      x-go-name: RatingType
+  - target: $.components.schemas.MinimalRatingRecordDto.properties.ratingSource
+    update:
+      x-go-name: RatingType
+  - target: $.components.schemas.PendingSectionDetailDto.properties.ratingSystem
+    update:
+      x-go-name: RatingType
+  - target: $.components.schemas.RatingRecordDto.properties.ratingSystem
+    update:
+      x-go-name: RatingType
+  - target: $.components.schemas.RatingSupplementSystemDto.properties.source
+    update:
+      x-go-name: RatingType
+  - target: $.components.schemas.SectionDetailDto.properties.ratingSystem
+    update:
+      x-go-name: RatingType
+  - target: $.components.schemas.TopPlayerReportDefinitionDto.properties.ratingSource
+    update:
+      x-go-name: RatingType
+  - target: $.components.schemas.TopPlayerReportDto.properties.ratingSource
+    update:
+      x-go-name: RatingType
+  - target: $.components.schemas.UnofficialRankLookupDto.properties.ratingSource
+    update:
+      x-go-name: RatingType
+  # This client supports JSON response representations only.
+  - target: $.paths.*.*.responses.*.content['text/plain']
+    remove: true
+  - target: $.paths.*.*.responses.*.content['text/json']
+    remove: true
