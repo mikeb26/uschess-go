@@ -197,6 +197,36 @@ actions:
   - target: $.paths./api/v1/members/{memberId}/games.get.parameters[4].schema
     update:
       x-go-type: MemberID
+  # These optional filters must retain their pointer types. The API treats
+  # zero-value query parameters as real filters, so emitting their zero values
+  # changes an otherwise unfiltered request into an empty result set.
+  - target: $.paths./api/v1/members/{memberId}/sections.get.parameters[1].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members/{memberId}/sections.get.parameters[2].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members/{memberId}/sections.get.parameters[3].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members/{memberId}/games.get.parameters[1].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members/{memberId}/games.get.parameters[2].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members/{memberId}/games.get.parameters[3].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members/{memberId}/games.get.parameters[4].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members/{memberId}/games.get.parameters[5].schema
+    update:
+      x-go-type-skip-optional-pointer: false
+  - target: $.paths./api/v1/members/{memberId}/games.get.parameters[6].schema
+    update:
+      x-go-type-skip-optional-pointer: false
   - target: $.paths./api/v1/members/{memberId}/top-player-reports.get.parameters[0].schema
     update:
       x-go-type: MemberID

@@ -123,8 +123,9 @@ func (c *ClientWithResponses) GetPlayer(ctx context.Context, memberID MemberID, 
 
 	if recentGamesOnOrAfterDate != nil {
 		group.Go(func() error {
+			onOrAfterDate := openapi_types.Date{Time: *recentGamesOnOrAfterDate}
 			games, err := c.GetAllMemberRatedGames(groupCtx, memberID, &GetMemberRatedGamesParams{
-				OnOrAfterDate: openapi_types.Date{Time: *recentGamesOnOrAfterDate},
+				OnOrAfterDate: &onOrAfterDate,
 			}, reqEditors...)
 			if err != nil {
 				return err
@@ -142,8 +143,9 @@ func (c *ClientWithResponses) GetPlayer(ctx context.Context, memberID MemberID, 
 		}
 
 		group.Go(func() error {
+			onOrAfterDate := openapi_types.Date{Time: *sectionsOnOrAfterDate}
 			sections, err := c.GetAllMemberRatedSections(groupCtx, memberID, &GetMemberRatedSectionsPageParams{
-				OnOrAfterDate: openapi_types.Date{Time: *sectionsOnOrAfterDate},
+				OnOrAfterDate: &onOrAfterDate,
 			}, reqEditors...)
 			if err != nil {
 				return err

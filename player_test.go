@@ -166,6 +166,12 @@ func TestGetPlayer(t *testing.T) {
 		if got := doer.queryForPath("/api/v1/members/12345678/games").Get("OnOrAfterDate"); got != "2026-01-15" {
 			t.Errorf("OnOrAfterDate = %q; want %q", got, "2026-01-15")
 		}
+		query := doer.queryForPath("/api/v1/members/12345678/games")
+		for _, key := range []string{"OnOrBeforeDate", "RatingSource", "OpponentId", "PreRating", "PostRating"} {
+			if _, ok := query[key]; ok {
+				t.Errorf("%s = %q; want omitted", key, query.Get(key))
+			}
+		}
 	})
 
 	t.Run("with recent sections", func(t *testing.T) {
@@ -200,6 +206,12 @@ func TestGetPlayer(t *testing.T) {
 		}
 		if got := doer.queryForPath("/api/v1/members/12345678/sections").Get("OnOrAfterDate"); got != "2026-02-03" {
 			t.Errorf("OnOrAfterDate = %q; want %q", got, "2026-02-03")
+		}
+		query := doer.queryForPath("/api/v1/members/12345678/sections")
+		for _, key := range []string{"OnOrBeforeDate", "RatingSource"} {
+			if _, ok := query[key]; ok {
+				t.Errorf("%s = %q; want omitted", key, query.Get(key))
+			}
 		}
 	})
 

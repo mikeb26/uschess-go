@@ -171,11 +171,15 @@ func TestGetAllMemberRatedGamesUsesParams(t *testing.T) {
 	}
 
 	stopRequest := errors.New("stop request")
+	ratingSource := RatingTypeR
+	opponentID := MemberID("87654321")
+	preRating := int32(1500)
+	postRating := int32(1520)
 	params := &GetMemberRatedGamesParams{
-		RatingSource: RatingTypeR,
-		OpponentId:   "87654321",
-		PreRating:    1500,
-		PostRating:   1520,
+		RatingSource: &ratingSource,
+		OpponentId:   &opponentID,
+		PreRating:    &preRating,
+		PostRating:   &postRating,
 		Size:         25,
 	}
 	_, err = client.GetAllMemberRatedGames(context.Background(), "12345678", params, func(_ context.Context, req *http.Request) error {
@@ -206,10 +210,13 @@ func TestGetAllMemberRatedSectionsUsesParams(t *testing.T) {
 	}
 
 	stopRequest := errors.New("stop request")
+	onOrAfterDate := testDate(2025, time.January, 1)
+	onOrBeforeDate := testDate(2025, time.December, 31)
+	ratingSource := RatingTypeR
 	params := &GetMemberRatedSectionsPageParams{
-		OnOrAfterDate:  testDate(2025, time.January, 1),
-		OnOrBeforeDate: testDate(2025, time.December, 31),
-		RatingSource:   RatingTypeR,
+		OnOrAfterDate:  &onOrAfterDate,
+		OnOrBeforeDate: &onOrBeforeDate,
+		RatingSource:   &ratingSource,
 		Size:           25,
 	}
 	_, err = client.GetAllMemberRatedSections(context.Background(), "12345678", params, func(_ context.Context, req *http.Request) error {
