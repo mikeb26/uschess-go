@@ -2,7 +2,10 @@ module github.com/mikeb26/uschess-go
 
 go 1.26.5
 
-require github.com/oapi-codegen/runtime v1.5.0
+require (
+	github.com/oapi-codegen/runtime v1.5.0
+	golang.org/x/sync v0.19.0
+)
 
 require (
 	github.com/apapsch/go-jsonmerge/v2 v2.0.0 // indirect
@@ -24,7 +27,6 @@ require (
 	github.com/woodsbury/decimal128 v1.4.0 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/mod v0.33.0 // indirect
-	golang.org/x/sync v0.19.0 // indirect
 	golang.org/x/text v0.34.0 // indirect
 	golang.org/x/tools v0.42.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
