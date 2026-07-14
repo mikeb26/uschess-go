@@ -29,7 +29,6 @@ type Player struct {
 	// type. Use Player.LiveRating() to get a player's live rating.
 	postSupplementRatingRecords []MinimalRatingRecord
 	liveIncluded                bool
-	supplementInclude           bool
 	latestSupplement            RatingSupplement
 }
 
@@ -72,19 +71,55 @@ func (p *Player) LiveRatings() ([]RatingSupplementSystem, error) {
 	return ratings, nil
 }
 
-// GetPlayer retrieves memberID's details and optional aggregate data.
+// GetPlayerOptions configures the optional aggregate data retrieved by
+// GetPlayer.
+type GetPlayerOptions struct {
+	// IncludeSupplements retrieves every page of rating supplements.
+	IncludeSupplements bool
+
+	// IncludeLiveRatings includes rating records from sections ending after
+	// the most recent monthly-rating cutoff, allowing Player.LiveRatings to
+	// calculate the player's current ratings.
+	IncludeLiveRatings bool
+
+	// RecentGamesOnOrAfter retrieves every page of rated games on or after
+	// this date.
+	RecentGamesOnOrAfter *time.Time
+
+	// RecentSectionsOnOrAfter retrieves every page of rated sections on or
+	// after this date.
+	RecentSectionsOnOrAfter *time.Time
+}
+
+// DefaultGetPlayerOptions returns the options used by GetPlayer when opts is
+// nil. It includes live ratings, rating supplements, games & sections from the
+// previous year.
 //
-// When includeSupplements is true, it retrieves every page of rating
-// supplements. When includeLiveRating is true, it includes rating records from
-// sections ending after the most recent monthly-rating cutoff. When
-// recentGamesOnOrAfterDate is non-nil, it retrieves every page of rated games
-// on or after that date. When recentSectionsOnOrAfterDate is non-nil, it
-// retrieves every page of rated sections on or after that date. The independent
-// requests run concurrently and the first error cancels the remaining work.
-func (c *ClientWithResponses) GetPlayer(ctx context.Context, memberID MemberID, includeSupplements, includeLiveRating bool, recentGamesOnOrAfterDate, recentSectionsOnOrAfterDate *time.Time, reqEditors ...RequestEditorFn) (*Player, error) {
+// A new value is returned on each call so callers may modify it safely.
+func DefaultGetPlayerOptions() GetPlayerOptions {
+	recentGamesOnOrAfter := time.Now().AddDate(-1, 0, 0)
+	recentSectionsOnOrAfter := recentGamesOnOrAfter
+	return GetPlayerOptions{
+		IncludeSupplements:      true,
+		IncludeLiveRatings:      true,
+		RecentGamesOnOrAfter:    &recentGamesOnOrAfter,
+		RecentSectionsOnOrAfter: &recentSectionsOnOrAfter,
+	}
+}
+
+// GetPlayer retrieves memberID's details and the optional aggregate data
+// selected by opts. When opts is nil, it uses DefaultGetPlayerOptions.
+//
+// The independent requests run concurrently and the first error cancels the
+// remaining work.
+func (c *ClientWithResponses) GetPlayer(ctx context.Context, memberID MemberID, opts *GetPlayerOptions, reqEditors ...RequestEditorFn) (*Player, error) {
+	if opts == nil {
+		defaultOpts := DefaultGetPlayerOptions()
+		opts = &defaultOpts
+	}
+
 	player := &Player{
-		liveIncluded:                includeLiveRating,
-		supplementInclude:           includeSupplements,
+		liveIncluded:                opts.IncludeLiveRatings,
 		RatingSupplements:           make([]RatingSupplement, 0),
 		MemberRatedGames:            make([]MemberRatedGame, 0),
 		MemberRatedSections:         make([]MemberRatedSection, 0),
@@ -107,13 +142,13 @@ func (c *ClientWithResponses) GetPlayer(ctx context.Context, memberID MemberID, 
 		return nil
 	})
 
-	if includeSupplements || includeLiveRating {
+	if opts.IncludeSupplements || opts.IncludeLiveRatings {
 		group.Go(func() error {
 			supplements, err := c.GetAllRatingSupplements(groupCtx, memberID, reqEditors...)
 			if err != nil {
 				return err
 			}
-			if includeSupplements {
+			if opts.IncludeSupplements {
 				player.RatingSupplements = supplements
 			}
 			player.latestSupplement = supplements[0]
@@ -121,9 +156,9 @@ func (c *ClientWithResponses) GetPlayer(ctx context.Context, memberID MemberID, 
 		})
 	}
 
-	if recentGamesOnOrAfterDate != nil {
+	if opts.RecentGamesOnOrAfter != nil {
 		group.Go(func() error {
-			onOrAfterDate := openapi_types.Date{Time: *recentGamesOnOrAfterDate}
+			onOrAfterDate := openapi_types.Date{Time: *opts.RecentGamesOnOrAfter}
 			games, err := c.GetAllMemberRatedGames(groupCtx, memberID, &GetMemberRatedGamesParams{
 				OnOrAfterDate: &onOrAfterDate,
 			}, reqEditors...)
@@ -135,10 +170,10 @@ func (c *ClientWithResponses) GetPlayer(ctx context.Context, memberID MemberID, 
 		})
 	}
 
-	if includeLiveRating || recentSectionsOnOrAfterDate != nil {
+	if opts.IncludeLiveRatings || opts.RecentSectionsOnOrAfter != nil {
 		liveRatingCutoff := mostRecentMonthlyRatingCutoff(time.Now())
-		sectionsOnOrAfterDate := recentSectionsOnOrAfterDate
-		if includeLiveRating && (sectionsOnOrAfterDate == nil || liveRatingCutoff.Before(*sectionsOnOrAfterDate)) {
+		sectionsOnOrAfterDate := opts.RecentSectionsOnOrAfter
+		if opts.IncludeLiveRatings && (sectionsOnOrAfterDate == nil || liveRatingCutoff.Before(*sectionsOnOrAfterDate)) {
 			sectionsOnOrAfterDate = &liveRatingCutoff
 		}
 
@@ -150,10 +185,10 @@ func (c *ClientWithResponses) GetPlayer(ctx context.Context, memberID MemberID, 
 			if err != nil {
 				return err
 			}
-			if recentSectionsOnOrAfterDate != nil {
-				player.MemberRatedSections = sectionsOnOrAfter(sections, *recentSectionsOnOrAfterDate)
+			if opts.RecentSectionsOnOrAfter != nil {
+				player.MemberRatedSections = sectionsOnOrAfter(sections, *opts.RecentSectionsOnOrAfter)
 			}
-			if includeLiveRating {
+			if opts.IncludeLiveRatings {
 				player.postSupplementRatingRecords = getLiveRatingRecords(sections, liveRatingCutoff)
 			}
 			return nil

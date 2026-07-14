@@ -71,34 +71,50 @@ func (d *playerTestDoer) queryForPath(path string) url.Values {
 }
 
 func TestGetPlayer(t *testing.T) {
-	t.Run("without supplements", func(t *testing.T) {
+	t.Run("uses default options when nil", func(t *testing.T) {
 		doer := &playerTestDoer{}
 		client, err := NewClientWithResponses("https://example.test", WithHTTPClient(doer))
 		if err != nil {
 			t.Fatalf("NewClientWithResponses returned an error: %v", err)
 		}
 
-		player, err := client.GetPlayer(context.Background(), "12345678", false, false, nil, nil)
+		player, err := client.GetPlayer(context.Background(), "12345678", nil)
 		if err != nil {
 			t.Fatalf("GetPlayer returned an error: %v", err)
 		}
 		if player.FirstName != "Jane" || player.LastName != "Player" {
 			t.Errorf("member detail = %+v; want Jane Player", player.MemberDetail)
 		}
-		if len(player.RatingSupplements) != 0 {
-			t.Errorf("RatingSupplements = %v; want empty when not included", len(player.RatingSupplements))
+		if len(player.RatingSupplements) != 1 {
+			t.Errorf("RatingSupplements = %v; want one supplement", len(player.RatingSupplements))
 		}
-		if len(player.MemberRatedGames) != 0 {
-			t.Errorf("MemberRatedGames = %v; want empty when no date is provided", len(player.MemberRatedGames))
+		if len(player.MemberRatedGames) != 1 {
+			t.Errorf("MemberRatedGames = %v; want one recent game", len(player.MemberRatedGames))
 		}
-		if len(player.MemberRatedSections) != 0 {
-			t.Errorf("MemberRatedSections = %v; want empty when no date is provided", len(player.MemberRatedSections))
+		if len(player.MemberRatedSections) != 1 {
+			t.Errorf("MemberRatedSections = %v; want one recent section", len(player.MemberRatedSections))
 		}
-		if len(player.postSupplementRatingRecords) != 0 {
-			t.Errorf("LiveRatings = %v; want empty when not included", len(player.postSupplementRatingRecords))
+		if !player.liveIncluded {
+			t.Error("liveIncluded = false; want true from default options")
 		}
-		if got := doer.paths(); len(got) != 1 || got[0] != "/api/v1/members/12345678" {
-			t.Errorf("request paths = %v; want only member request", got)
+
+		paths := doer.paths()
+		if len(paths) != 4 {
+			t.Fatalf("request paths = %v; want member, supplements, games, and sections requests", paths)
+		}
+		seen := make(map[string]bool, len(paths))
+		for _, path := range paths {
+			seen[path] = true
+		}
+		for _, path := range []string{
+			"/api/v1/members/12345678",
+			"/api/v1/members/12345678/rating-supplements",
+			"/api/v1/members/12345678/games",
+			"/api/v1/members/12345678/sections",
+		} {
+			if !seen[path] {
+				t.Errorf("request paths = %v; want %s", paths, path)
+			}
 		}
 	})
 
@@ -109,7 +125,7 @@ func TestGetPlayer(t *testing.T) {
 			t.Fatalf("NewClientWithResponses returned an error: %v", err)
 		}
 
-		player, err := client.GetPlayer(context.Background(), "12345678", true, false, nil, nil)
+		player, err := client.GetPlayer(context.Background(), "12345678", &GetPlayerOptions{IncludeSupplements: true})
 		if err != nil {
 			t.Fatalf("GetPlayer returned an error: %v", err)
 		}
@@ -141,7 +157,7 @@ func TestGetPlayer(t *testing.T) {
 		}
 
 		onOrAfter := time.Date(2026, time.January, 15, 13, 45, 0, 0, time.FixedZone("UTC-5", -5*60*60))
-		player, err := client.GetPlayer(context.Background(), "12345678", false, false, &onOrAfter, nil)
+		player, err := client.GetPlayer(context.Background(), "12345678", &GetPlayerOptions{RecentGamesOnOrAfter: &onOrAfter})
 		if err != nil {
 			t.Fatalf("GetPlayer returned an error: %v", err)
 		}
@@ -182,7 +198,7 @@ func TestGetPlayer(t *testing.T) {
 		}
 
 		onOrAfter := time.Date(2026, time.February, 3, 16, 30, 0, 0, time.FixedZone("UTC+8", 8*60*60))
-		player, err := client.GetPlayer(context.Background(), "12345678", false, false, nil, &onOrAfter)
+		player, err := client.GetPlayer(context.Background(), "12345678", &GetPlayerOptions{RecentSectionsOnOrAfter: &onOrAfter})
 		if err != nil {
 			t.Fatalf("GetPlayer returned an error: %v", err)
 		}
@@ -230,7 +246,10 @@ func TestGetPlayer(t *testing.T) {
 			t.Fatalf("NewClientWithResponses returned an error: %v", err)
 		}
 
-		player, err := client.GetPlayer(context.Background(), "12345678", false, true, nil, &recentSectionsDate)
+		player, err := client.GetPlayer(context.Background(), "12345678", &GetPlayerOptions{
+			IncludeLiveRatings:      true,
+			RecentSectionsOnOrAfter: &recentSectionsDate,
+		})
 		if err != nil {
 			t.Fatalf("GetPlayer returned an error: %v", err)
 		}
@@ -255,6 +274,40 @@ func TestGetPlayer(t *testing.T) {
 			t.Errorf("OnOrAfterDate = %q; want earliest date %q", got, cutoff.Format(time.DateOnly))
 		}
 	})
+}
+
+func TestDefaultGetPlayerOptions(t *testing.T) {
+	before := time.Now().AddDate(-1, 0, 0)
+	first := DefaultGetPlayerOptions()
+	second := DefaultGetPlayerOptions()
+	after := time.Now().AddDate(-1, 0, 0)
+
+	if !first.IncludeLiveRatings {
+		t.Error("DefaultGetPlayerOptions().IncludeLiveRatings = false; want true")
+	}
+	for name, date := range map[string]*time.Time{
+		"RecentGamesOnOrAfter":    first.RecentGamesOnOrAfter,
+		"RecentSectionsOnOrAfter": first.RecentSectionsOnOrAfter,
+	} {
+		if date == nil {
+			t.Errorf("DefaultGetPlayerOptions().%s = nil; want one year ago", name)
+			continue
+		}
+		if date.Before(before) || date.After(after) {
+			t.Errorf("DefaultGetPlayerOptions().%s = %s; want approximately one year ago", name, *date)
+		}
+	}
+	first.IncludeLiveRatings = false
+	if !second.IncludeLiveRatings {
+		t.Error("DefaultGetPlayerOptions returned shared options")
+	}
+	*first.RecentGamesOnOrAfter = time.Time{}
+	if second.RecentGamesOnOrAfter.IsZero() {
+		t.Error("DefaultGetPlayerOptions returned shared date pointers")
+	}
+	if first.RecentSectionsOnOrAfter.IsZero() {
+		t.Error("DefaultGetPlayerOptions shares its games and sections date pointers")
+	}
 }
 
 func TestGetLiveRatingRecords(t *testing.T) {
