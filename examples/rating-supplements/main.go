@@ -35,11 +35,7 @@ func main() {
 				continue
 			}
 
-			fmt.Printf("  %s: %d", rating.RatingType, rating.Rating)
-			if rating.ProvisionalGameCount > 0 {
-				fmt.Printf("P%d", rating.ProvisionalGameCount)
-			}
-			fmt.Printf("\n")
+			fmt.Printf("  %s\n", rating)
 		}
 	}
 }
