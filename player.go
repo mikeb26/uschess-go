@@ -19,17 +19,20 @@ import (
 // tournaments, etc)
 type Player struct {
 	MemberDetail
-	RatingSupplements []RatingSupplement
-	MemberRatedGames  []MemberRatedGame
+	RatingSupplements   []RatingSupplement
+	MemberRatedGames    []MemberRatedGame
+	MemberRatedSections []MemberRatedSection
 }
 
 // GetPlayer retrieves memberID's details and optional aggregate data.
 //
 // When includeSupplements is true, it retrieves every page of rating
 // supplements. When recentGamesOnOrAfterDate is non-nil, it retrieves every
-// page of rated games on or after that date. The independent requests run
-// concurrently and the first error cancels the remaining work.
-func (c *ClientWithResponses) GetPlayer(ctx context.Context, memberID MemberID, includeSupplements bool, recentGamesOnOrAfterDate *time.Time, reqEditors ...RequestEditorFn) (*Player, error) {
+// page of rated games on or after that date. When recentSectionsOnOrAfterDate
+// is non-nil, it retrieves every page of rated sections on or after that date.
+// The independent requests run concurrently and the first error cancels the
+// remaining work.
+func (c *ClientWithResponses) GetPlayer(ctx context.Context, memberID MemberID, includeSupplements bool, recentGamesOnOrAfterDate, recentSectionsOnOrAfterDate *time.Time, reqEditors ...RequestEditorFn) (*Player, error) {
 	player := &Player{}
 	group, groupCtx := errgroup.WithContext(ctx)
 
@@ -68,6 +71,19 @@ func (c *ClientWithResponses) GetPlayer(ctx context.Context, memberID MemberID, 
 				return err
 			}
 			player.MemberRatedGames = games
+			return nil
+		})
+	}
+
+	if recentSectionsOnOrAfterDate != nil {
+		group.Go(func() error {
+			sections, err := c.GetAllMemberRatedSections(groupCtx, memberID, &GetMemberRatedSectionsPageParams{
+				OnOrAfterDate: openapi_types.Date{Time: *recentSectionsOnOrAfterDate},
+			}, reqEditors...)
+			if err != nil {
+				return err
+			}
+			player.MemberRatedSections = sections
 			return nil
 		})
 	}

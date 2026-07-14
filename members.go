@@ -80,12 +80,22 @@ func (c *ClientWithResponses) GetAllMemberRatedGames(ctx context.Context, member
 	return items, nil
 }
 
-// GetAllMemberRatedSections retrieves every rated-sections page for memberID, sorted by start date descending.
-func (c *ClientWithResponses) GetAllMemberRatedSections(ctx context.Context, memberID MemberID, reqEditors ...RequestEditorFn) ([]MemberRatedSection, error) {
-	pageParams := GetMemberRatedSectionsPageParams{Size: defaultPaginationPageSize}
+// GetAllMemberRatedSections retrieves every rated-sections page for memberID
+// matching pageParams, sorted by start date descending.
+//
+// When pageParams is nil, it retrieves all rated sections. Its Offset is
+// managed while retrieving pages.
+func (c *ClientWithResponses) GetAllMemberRatedSections(ctx context.Context, memberID MemberID, pageParams *GetMemberRatedSectionsPageParams, reqEditors ...RequestEditorFn) ([]MemberRatedSection, error) {
+	if pageParams == nil {
+		pageParams = &GetMemberRatedSectionsPageParams{Size: defaultPaginationPageSize}
+	}
+	if pageParams.Size <= 0 {
+		pageParams.Size = defaultPaginationPageSize
+	}
+
 	items, err := collectPages(ctx, func(ctx context.Context, offset int32) (pageResult[MemberRatedSection], error) {
 		pageParams.Offset = offset
-		response, err := c.GetMemberRatedSectionsPageWithResponse(ctx, memberID, &pageParams, reqEditors...)
+		response, err := c.GetMemberRatedSectionsPageWithResponse(ctx, memberID, pageParams, reqEditors...)
 		if err != nil {
 			return pageResult[MemberRatedSection]{}, err
 		}

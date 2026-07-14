@@ -106,7 +106,7 @@ func TestGetAllWrappersRequestPageSize(t *testing.T) {
 		{
 			name: "member rated sections",
 			call: func(editor RequestEditorFn) error {
-				_, err := client.GetAllMemberRatedSections(context.Background(), "12345678", editor)
+				_, err := client.GetAllMemberRatedSections(context.Background(), "12345678", nil, editor)
 				return err
 			},
 		},
@@ -196,6 +196,39 @@ func TestGetAllMemberRatedGamesUsesParams(t *testing.T) {
 	})
 	if !errors.Is(err, stopRequest) {
 		t.Fatalf("GetAllMemberRatedGames error = %v; want request editor error", err)
+	}
+}
+
+func TestGetAllMemberRatedSectionsUsesParams(t *testing.T) {
+	client, err := NewClientWithResponses("https://example.test")
+	if err != nil {
+		t.Fatalf("NewClientWithResponses returned an error: %v", err)
+	}
+
+	stopRequest := errors.New("stop request")
+	params := &GetMemberRatedSectionsPageParams{
+		OnOrAfterDate:  testDate(2025, time.January, 1),
+		OnOrBeforeDate: testDate(2025, time.December, 31),
+		RatingSource:   RatingTypeR,
+		Size:           25,
+	}
+	_, err = client.GetAllMemberRatedSections(context.Background(), "12345678", params, func(_ context.Context, req *http.Request) error {
+		query := req.URL.Query()
+		for key, want := range map[string]string{
+			"OnOrAfterDate":  "2025-01-01",
+			"OnOrBeforeDate": "2025-12-31",
+			"RatingSource":   "R",
+			"Size":           "25",
+			"Offset":         "0",
+		} {
+			if got := query.Get(key); got != want {
+				t.Errorf("%s = %q; want %q", key, got, want)
+			}
+		}
+		return stopRequest
+	})
+	if !errors.Is(err, stopRequest) {
+		t.Fatalf("GetAllMemberRatedSections error = %v; want request editor error", err)
 	}
 }
 
