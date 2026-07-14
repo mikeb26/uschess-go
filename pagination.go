@@ -12,6 +12,10 @@ import (
 	"sort"
 )
 
+// defaultPaginationPageSize must be positive because the API returns a zero
+// PageSize when the Size query parameter is omitted, even if more pages exist.
+const defaultPaginationPageSize int32 = 100
+
 type pageResult[T any] struct {
 	items       []T
 	offset      int32

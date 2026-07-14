@@ -8,7 +8,7 @@ import "context"
 
 // GetAllRatingSupplements retrieves every rating-supplements page for memberID, sorted by rating supplement date descending.
 func (c *ClientWithResponses) GetAllRatingSupplements(ctx context.Context, memberID MemberID, reqEditors ...RequestEditorFn) ([]RatingSupplement, error) {
-	pageParams := GetRatingSupplementsPageParams{}
+	pageParams := GetRatingSupplementsPageParams{Size: defaultPaginationPageSize}
 	items, err := collectPages(ctx, func(ctx context.Context, offset int32) (pageResult[RatingSupplement], error) {
 		pageParams.Offset = offset
 		response, err := c.GetRatingSupplementsPageWithResponse(ctx, memberID, &pageParams, reqEditors...)

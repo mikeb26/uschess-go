@@ -9,7 +9,7 @@ import "context"
 
 // GetAllRatedEventStandings retrieves every standings page for eventID and sectionNumber, sorted by ordinal ascending.
 func (c *ClientWithResponses) GetAllRatedEventStandings(ctx context.Context, eventID EventID, sectionNumber int32, reqEditors ...RequestEditorFn) ([]Standings, error) {
-	pageParams := GetRatedEventStandingsPageParams{}
+	pageParams := GetRatedEventStandingsPageParams{Size: defaultPaginationPageSize}
 	items, err := collectPages(ctx, func(ctx context.Context, offset int32) (pageResult[Standings], error) {
 		pageParams.Offset = offset
 		response, err := c.GetRatedEventStandingsPageWithResponse(ctx, eventID, sectionNumber, &pageParams, reqEditors...)

@@ -15,11 +15,15 @@ func (c *ClientWithResponses) GetAllAffiliates(ctx context.Context,
 		pageParams = &GetAffiliatesPageParams{
 			SortBy: AffiliateSortByName,
 			Dir:    Asc,
+			Size:   defaultPaginationPageSize,
 		}
 	}
 	if !pageParams.SortBy.Valid() {
 		pageParams.SortBy = AffiliateSortByName
 		pageParams.Dir = Asc
+	}
+	if pageParams.Size <= 0 {
+		pageParams.Size = defaultPaginationPageSize
 	}
 
 	return collectPages(ctx, func(ctx context.Context, offset int32) (pageResult[Affiliate], error) {

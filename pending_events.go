@@ -12,6 +12,7 @@ func (c *ClientWithResponses) GetAllPendingPlayers(ctx context.Context, pendingE
 	pageParams := ListPendingPlayersParams{
 		SortBy: PendingPlayerSortByPairingNumber,
 		Dir:    Asc,
+		Size:   defaultPaginationPageSize,
 	}
 	return collectPages(ctx, func(ctx context.Context, offset int32) (pageResult[PendingPlayer], error) {
 		pageParams.Offset = offset

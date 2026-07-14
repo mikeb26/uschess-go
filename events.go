@@ -16,11 +16,15 @@ func (c *ClientWithResponses) GetAllAffiliateRatedEvents(ctx context.Context,
 		pageParams = &GetAffiliateRatedEventsParams{
 			SortBy: AffiliateEventSortByStartDate,
 			Dir:    Desc,
+			Size:   defaultPaginationPageSize,
 		}
 	}
 	if !pageParams.SortBy.Valid() {
 		pageParams.SortBy = AffiliateEventSortByStartDate
 		pageParams.Dir = Desc
+	}
+	if pageParams.Size <= 0 {
+		pageParams.Size = defaultPaginationPageSize
 	}
 
 	return collectPages(ctx, func(ctx context.Context, offset int32) (pageResult[RatedEvent], error) {
@@ -42,7 +46,7 @@ func (c *ClientWithResponses) GetAllAffiliateRatedEvents(ctx context.Context,
 
 // GetAllMemberRatedEvents retrieves every rated-events page for memberID, sorted by start date descending.
 func (c *ClientWithResponses) GetAllMemberRatedEvents(ctx context.Context, memberID MemberID, reqEditors ...RequestEditorFn) ([]RatedEvent, error) {
-	pageParams := GetMemberRatedEventsPageParams{}
+	pageParams := GetMemberRatedEventsPageParams{Size: defaultPaginationPageSize}
 	items, err := collectPages(ctx, func(ctx context.Context, offset int32) (pageResult[RatedEvent], error) {
 		pageParams.Offset = offset
 		response, err := c.GetMemberRatedEventsPageWithResponse(ctx, memberID, &pageParams, reqEditors...)
@@ -74,11 +78,15 @@ func (c *ClientWithResponses) GetAllRatedEvents(ctx context.Context,
 		pageParams = &GetRatedEventsPageParams{
 			SortBy: RatedEventSortByStartDate,
 			Dir:    Desc,
+			Size:   defaultPaginationPageSize,
 		}
 	}
 	if !pageParams.SortBy.Valid() {
 		pageParams.SortBy = RatedEventSortByStartDate
 		pageParams.Dir = Desc
+	}
+	if pageParams.Size <= 0 {
+		pageParams.Size = defaultPaginationPageSize
 	}
 	return collectPages(ctx, func(ctx context.Context, offset int32) (pageResult[RatedEvent], error) {
 		pageParams.Offset = offset

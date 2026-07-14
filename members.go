@@ -9,7 +9,7 @@ import "context"
 
 // GetAllMemberAwards retrieves every awards page for memberID.
 func (c *ClientWithResponses) GetAllMemberAwards(ctx context.Context, memberID MemberID, reqEditors ...RequestEditorFn) ([]MemberAward, error) {
-	pageParams := GetMemberAwardsPageParams{}
+	pageParams := GetMemberAwardsPageParams{Size: defaultPaginationPageSize}
 	return collectPages(ctx, func(ctx context.Context, offset int32) (pageResult[MemberAward], error) {
 		pageParams.Offset = offset
 		response, err := c.GetMemberAwardsPageWithResponse(ctx, memberID, &pageParams, reqEditors...)
@@ -29,7 +29,7 @@ func (c *ClientWithResponses) GetAllMemberAwards(ctx context.Context, memberID M
 
 // GetAllMemberDirectorships retrieves every directorships page for memberID.
 func (c *ClientWithResponses) GetAllMemberDirectorships(ctx context.Context, memberID MemberID, reqEditors ...RequestEditorFn) ([]MemberDirectorship, error) {
-	pageParams := GetMemberDirectorshipsPageParams{}
+	pageParams := GetMemberDirectorshipsPageParams{Size: defaultPaginationPageSize}
 	return collectPages(ctx, func(ctx context.Context, offset int32) (pageResult[MemberDirectorship], error) {
 		pageParams.Offset = offset
 		response, err := c.GetMemberDirectorshipsPageWithResponse(ctx, memberID, &pageParams, reqEditors...)
@@ -49,7 +49,7 @@ func (c *ClientWithResponses) GetAllMemberDirectorships(ctx context.Context, mem
 
 // GetAllMemberRatedGames retrieves every rated-games page for memberID, sorted by event start date descending.
 func (c *ClientWithResponses) GetAllMemberRatedGames(ctx context.Context, memberID MemberID, reqEditors ...RequestEditorFn) ([]MemberRatedGame, error) {
-	pageParams := GetMemberRatedGamesParams{}
+	pageParams := GetMemberRatedGamesParams{Size: defaultPaginationPageSize}
 	items, err := collectPages(ctx, func(ctx context.Context, offset int32) (pageResult[MemberRatedGame], error) {
 		pageParams.Offset = offset
 		response, err := c.GetMemberRatedGamesWithResponse(ctx, memberID, &pageParams, reqEditors...)
@@ -74,7 +74,7 @@ func (c *ClientWithResponses) GetAllMemberRatedGames(ctx context.Context, member
 
 // GetAllMemberRatedSections retrieves every rated-sections page for memberID, sorted by start date descending.
 func (c *ClientWithResponses) GetAllMemberRatedSections(ctx context.Context, memberID MemberID, reqEditors ...RequestEditorFn) ([]MemberRatedSection, error) {
-	pageParams := GetMemberRatedSectionsPageParams{}
+	pageParams := GetMemberRatedSectionsPageParams{Size: defaultPaginationPageSize}
 	items, err := collectPages(ctx, func(ctx context.Context, offset int32) (pageResult[MemberRatedSection], error) {
 		pageParams.Offset = offset
 		response, err := c.GetMemberRatedSectionsPageWithResponse(ctx, memberID, &pageParams, reqEditors...)
@@ -99,7 +99,7 @@ func (c *ClientWithResponses) GetAllMemberRatedSections(ctx context.Context, mem
 
 // GetAllTopPlayersReportsForMember retrieves every top-player-reports page for memberID.
 func (c *ClientWithResponses) GetAllTopPlayersReportsForMember(ctx context.Context, memberID MemberID, reqEditors ...RequestEditorFn) ([]TopPlayerReport, error) {
-	pageParams := GetTopPlayersReportForMemberParams{}
+	pageParams := GetTopPlayersReportForMemberParams{Size: defaultPaginationPageSize}
 	return collectPages(ctx, func(ctx context.Context, offset int32) (pageResult[TopPlayerReport], error) {
 		pageParams.Offset = offset
 		response, err := c.GetTopPlayersReportForMemberWithResponse(ctx, memberID, &pageParams, reqEditors...)

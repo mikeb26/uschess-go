@@ -50,7 +50,7 @@ func TestCollectPagesRejectsNonAdvancingPage(t *testing.T) {
 	}
 }
 
-func TestGetAllWrappersUseAPISideSorting(t *testing.T) {
+func TestGetAllWrappersRequestPageSize(t *testing.T) {
 	client, err := NewClientWithResponses("https://example.test")
 	if err != nil {
 		t.Fatalf("NewClientWithResponses returned an error: %v", err)
@@ -58,80 +58,90 @@ func TestGetAllWrappersUseAPISideSorting(t *testing.T) {
 
 	stopRequest := errors.New("stop request")
 	tests := []struct {
-		name   string
-		sortBy string
-		dir    string
-		call   func(RequestEditorFn) error
+		name string
+		call func(RequestEditorFn) error
 	}{
 		{
-			name:   "affiliates",
-			sortBy: "Name",
-			dir:    "Asc",
+			name: "affiliates",
 			call: func(editor RequestEditorFn) error {
-				_, err := client.GetAllAffiliates(context.Background(), editor)
+				_, err := client.GetAllAffiliates(context.Background(), nil, editor)
 				return err
 			},
 		},
 		{
-			name:   "affiliate rated events",
-			sortBy: "StartDate",
-			dir:    "Desc",
+			name: "affiliate rated events",
 			call: func(editor RequestEditorFn) error {
-				_, err := client.GetAllAffiliateRatedEvents(context.Background(), "A123", editor)
+				_, err := client.GetAllAffiliateRatedEvents(context.Background(), "A123", nil, editor)
 				return err
 			},
 		},
 		{
-			name:   "Grand Prix standings",
-			sortBy: "PointsThisYear",
-			dir:    "Desc",
+			name: "member awards",
 			call: func(editor RequestEditorFn) error {
-				_, err := client.GetAllGrandPrixStandings(context.Background(), editor)
+				_, err := client.GetAllMemberAwards(context.Background(), "12345678", editor)
 				return err
 			},
 		},
 		{
-			name:   "Grand Prix sections",
-			sortBy: "RatedDate",
-			dir:    "Desc",
+			name: "member directorships",
 			call: func(editor RequestEditorFn) error {
-				_, err := client.GetAllGrandPrixSections(context.Background(), 2026, editor)
+				_, err := client.GetAllMemberDirectorships(context.Background(), "12345678", editor)
 				return err
 			},
 		},
 		{
-			name:   "members",
-			sortBy: "Name",
-			dir:    "Asc",
+			name: "member rated events",
 			call: func(editor RequestEditorFn) error {
-				_, err := client.GetAllMembers(context.Background(), editor)
+				_, err := client.GetAllMemberRatedEvents(context.Background(), "12345678", editor)
 				return err
 			},
 		},
 		{
-			name:   "pending events",
-			sortBy: "UpdatedOn",
-			dir:    "Desc",
+			name: "member rated games",
 			call: func(editor RequestEditorFn) error {
-				_, err := client.GetAllPendingEvents(context.Background(), editor)
+				_, err := client.GetAllMemberRatedGames(context.Background(), "12345678", editor)
 				return err
 			},
 		},
 		{
-			name:   "pending players",
-			sortBy: "PairingNumber",
-			dir:    "Asc",
+			name: "member rated sections",
+			call: func(editor RequestEditorFn) error {
+				_, err := client.GetAllMemberRatedSections(context.Background(), "12345678", editor)
+				return err
+			},
+		},
+		{
+			name: "top-player reports for member",
+			call: func(editor RequestEditorFn) error {
+				_, err := client.GetAllTopPlayersReportsForMember(context.Background(), "12345678", editor)
+				return err
+			},
+		},
+		{
+			name: "pending players",
 			call: func(editor RequestEditorFn) error {
 				_, err := client.GetAllPendingPlayers(context.Background(), "E123", "S123", editor)
 				return err
 			},
 		},
 		{
-			name:   "rated events",
-			sortBy: "StartDate",
-			dir:    "Desc",
+			name: "rated event standings",
 			call: func(editor RequestEditorFn) error {
-				_, err := client.GetAllRatedEvents(context.Background(), editor)
+				_, err := client.GetAllRatedEventStandings(context.Background(), "E123", 1, editor)
+				return err
+			},
+		},
+		{
+			name: "rated events",
+			call: func(editor RequestEditorFn) error {
+				_, err := client.GetAllRatedEvents(context.Background(), nil, editor)
+				return err
+			},
+		},
+		{
+			name: "rating supplements",
+			call: func(editor RequestEditorFn) error {
+				_, err := client.GetAllRatingSupplements(context.Background(), "12345678", editor)
 				return err
 			},
 		},
@@ -147,11 +157,8 @@ func TestGetAllWrappersUseAPISideSorting(t *testing.T) {
 			if !errors.Is(err, stopRequest) {
 				t.Fatalf("wrapper error = %v; want request editor error", err)
 			}
-			if got := query.Get("SortBy"); got != tt.sortBy {
-				t.Errorf("SortBy = %q; want %q", got, tt.sortBy)
-			}
-			if got := query.Get("Dir"); got != tt.dir {
-				t.Errorf("Dir = %q; want %q", got, tt.dir)
+			if got := query.Get("Size"); got != "100" {
+				t.Errorf("Size = %q; want %q", got, "100")
 			}
 		})
 	}
