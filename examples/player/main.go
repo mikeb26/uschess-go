@@ -22,7 +22,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	memberID := uschess.MemberID("12641216")
+	memberID := uschess.MemberID("12641216") // hikaru nakamura
 	player, err := client.GetPlayer(ctx, memberID, nil)
 	if err != nil {
 		log.Fatalf("get player: %v", err)
@@ -51,6 +51,7 @@ func main() {
 		fmt.Printf("  %s\n", rating)
 	}
 
+	fmt.Printf("\n%v total rated events\n", len(player.MemberEvents))
 	fmt.Println("\nMost recent 10 games:")
 	games := player.MemberRatedGames
 	if len(games) > 10 {
