@@ -157,7 +157,9 @@ func (c *ClientWithResponses) GetPlayer(ctx context.Context, memberID MemberID, 
 			if opts.IncludeSupplements {
 				player.RatingSupplements = supplements
 			}
-			player.latestSupplement = supplements[0]
+			if len(supplements) > 0 {
+				player.latestSupplement = supplements[0]
+			}
 			return nil
 		})
 	}
