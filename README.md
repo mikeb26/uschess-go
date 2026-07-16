@@ -134,7 +134,7 @@ if err != nil {
 Available helpers include:
 
 - `GetAllAffiliates`
-- `GetAllMembers`, `GetAllMemberAwards`, `GetAllMemberDirectorships`, `GetAllMemberRatedEvents`, `GetAllMemberRatedGames`, `GetAllMemberRatedSections`, `GetAllRatingSupplements`, and `GetAllTopPlayersReportsForMember`
+- `GetAllMembers`, `GetAllMemberAwards`, `GetAllMemberDirectorships`, `GetAllMemberEvents`, `GetAllMemberRatedGames`, `GetAllMemberRatedSections`, `GetAllRatingSupplements`, and `GetAllTopPlayersReportsForMember`
 - `GetAllRatedEvents`, `GetAllRatedSections`, and `GetAllRatedEventStandings`
 - `GetAllAffiliateRatedEvents`
 - `GetAllGrandPrixStandings` and `GetAllGrandPrixSections`

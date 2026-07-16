@@ -36,6 +36,8 @@ func (d *playerTestDoer) Do(req *http.Request) (*http.Response, error) {
 	switch {
 	case strings.HasSuffix(req.URL.Path, "/rating-supplements"):
 		body = `{"items":[{"ratingSupplementDate":"2026-01-01","ratings":[]}],"offset":0,"pageSize":100,"hasNextPage":false}`
+	case strings.HasSuffix(req.URL.Path, "/events"):
+		body = `{"items":[{"name":"Event","startDate":"2026-02-03"}],"offset":0,"pageSize":100,"hasNextPage":false}`
 	case strings.HasSuffix(req.URL.Path, "/games"):
 		body = `{"items":[{}],"offset":0,"pageSize":100,"hasNextPage":false}`
 	case strings.HasSuffix(req.URL.Path, "/sections"):
@@ -88,6 +90,9 @@ func TestGetPlayer(t *testing.T) {
 		if len(player.RatingSupplements) != 1 {
 			t.Errorf("RatingSupplements = %v; want one supplement", len(player.RatingSupplements))
 		}
+		if len(player.MemberEvents) != 1 {
+			t.Errorf("MemberEvents = %v; want one event", len(player.MemberEvents))
+		}
 		if len(player.MemberRatedGames) != 1 {
 			t.Errorf("MemberRatedGames = %v; want one recent game", len(player.MemberRatedGames))
 		}
@@ -99,8 +104,8 @@ func TestGetPlayer(t *testing.T) {
 		}
 
 		paths := doer.paths()
-		if len(paths) != 4 {
-			t.Fatalf("request paths = %v; want member, supplements, games, and sections requests", paths)
+		if len(paths) != 5 {
+			t.Fatalf("request paths = %v; want member, supplements, events, games, and sections requests", paths)
 		}
 		seen := make(map[string]bool, len(paths))
 		for _, path := range paths {
@@ -109,6 +114,7 @@ func TestGetPlayer(t *testing.T) {
 		for _, path := range []string{
 			"/api/v1/members/12345678",
 			"/api/v1/members/12345678/rating-supplements",
+			"/api/v1/members/12345678/events",
 			"/api/v1/members/12345678/games",
 			"/api/v1/members/12345678/sections",
 		} {
@@ -146,6 +152,34 @@ func TestGetPlayer(t *testing.T) {
 		}
 		if !seen["/api/v1/members/12345678"] || !seen["/api/v1/members/12345678/rating-supplements"] {
 			t.Errorf("request paths = %v; want member and supplements requests", paths)
+		}
+	})
+
+	t.Run("with events", func(t *testing.T) {
+		doer := &playerTestDoer{}
+		client, err := NewClientWithResponses("https://example.test", WithHTTPClient(doer))
+		if err != nil {
+			t.Fatalf("NewClientWithResponses returned an error: %v", err)
+		}
+
+		player, err := client.GetPlayer(context.Background(), "12345678", &GetPlayerOptions{IncludeEvents: true})
+		if err != nil {
+			t.Fatalf("GetPlayer returned an error: %v", err)
+		}
+		if got := len(player.MemberEvents); got != 1 {
+			t.Errorf("MemberEvents length = %d; want 1", got)
+		}
+
+		paths := doer.paths()
+		if len(paths) != 2 {
+			t.Fatalf("request paths = %v; want member and events requests", paths)
+		}
+		seen := make(map[string]bool, len(paths))
+		for _, path := range paths {
+			seen[path] = true
+		}
+		if !seen["/api/v1/members/12345678"] || !seen["/api/v1/members/12345678/events"] {
+			t.Errorf("request paths = %v; want member and events requests", paths)
 		}
 	})
 
@@ -284,6 +318,9 @@ func TestDefaultGetPlayerOptions(t *testing.T) {
 
 	if !first.IncludeLiveRatings {
 		t.Error("DefaultGetPlayerOptions().IncludeLiveRatings = false; want true")
+	}
+	if !first.IncludeEvents {
+		t.Error("DefaultGetPlayerOptions().IncludeEvents = false; want true")
 	}
 	for name, date := range map[string]*time.Time{
 		"RecentGamesOnOrAfter":    first.RecentGamesOnOrAfter,

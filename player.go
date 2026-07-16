@@ -21,6 +21,7 @@ import (
 type Player struct {
 	MemberDetail
 	RatingSupplements   []RatingSupplement
+	MemberEvents        []RatedEvent
 	MemberRatedGames    []MemberRatedGame
 	MemberRatedSections []MemberRatedSection
 
@@ -77,6 +78,9 @@ type GetPlayerOptions struct {
 	// IncludeSupplements retrieves every page of rating supplements.
 	IncludeSupplements bool
 
+	// IncludeEvents retrieves every page of the member's rated events.
+	IncludeEvents bool
+
 	// IncludeLiveRatings includes rating records from sections ending after
 	// the most recent monthly-rating cutoff, allowing Player.LiveRatings to
 	// calculate the player's current ratings.
@@ -101,6 +105,7 @@ func DefaultGetPlayerOptions() GetPlayerOptions {
 	recentSectionsOnOrAfter := recentGamesOnOrAfter
 	return GetPlayerOptions{
 		IncludeSupplements:      true,
+		IncludeEvents:           true,
 		IncludeLiveRatings:      true,
 		RecentGamesOnOrAfter:    &recentGamesOnOrAfter,
 		RecentSectionsOnOrAfter: &recentSectionsOnOrAfter,
@@ -121,6 +126,7 @@ func (c *ClientWithResponses) GetPlayer(ctx context.Context, memberID MemberID, 
 	player := &Player{
 		liveIncluded:                opts.IncludeLiveRatings,
 		RatingSupplements:           make([]RatingSupplement, 0),
+		MemberEvents:                make([]RatedEvent, 0),
 		MemberRatedGames:            make([]MemberRatedGame, 0),
 		MemberRatedSections:         make([]MemberRatedSection, 0),
 		postSupplementRatingRecords: make([]MinimalRatingRecord, 0),
@@ -152,6 +158,17 @@ func (c *ClientWithResponses) GetPlayer(ctx context.Context, memberID MemberID, 
 				player.RatingSupplements = supplements
 			}
 			player.latestSupplement = supplements[0]
+			return nil
+		})
+	}
+
+	if opts.IncludeEvents {
+		group.Go(func() error {
+			events, err := c.GetAllMemberEvents(groupCtx, memberID, reqEditors...)
+			if err != nil {
+				return err
+			}
+			player.MemberEvents = events
 			return nil
 		})
 	}

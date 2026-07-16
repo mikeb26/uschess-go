@@ -90,9 +90,16 @@ func TestGetAllWrappersRequestPageSize(t *testing.T) {
 			},
 		},
 		{
+			name: "member events",
+			call: func(editor RequestEditorFn) error {
+				_, err := client.GetAllMemberEvents(context.Background(), "12345678", editor)
+				return err
+			},
+		},
+		{
 			name: "member rated events",
 			call: func(editor RequestEditorFn) error {
-				_, err := client.GetAllMemberRatedEvents(context.Background(), "12345678", editor)
+				_, err := client.GetAllMemberEvents(context.Background(), "12345678", editor)
 				return err
 			},
 		},

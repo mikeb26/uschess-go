@@ -44,8 +44,9 @@ func (c *ClientWithResponses) GetAllAffiliateRatedEvents(ctx context.Context,
 	})
 }
 
-// GetAllMemberRatedEvents retrieves every rated-events page for memberID, sorted by start date descending.
-func (c *ClientWithResponses) GetAllMemberRatedEvents(ctx context.Context, memberID MemberID, reqEditors ...RequestEditorFn) ([]RatedEvent, error) {
+// GetAllMemberEvents retrieves every rated-events page for memberID, sorted
+// by start date descending.
+func (c *ClientWithResponses) GetAllMemberEvents(ctx context.Context, memberID MemberID, reqEditors ...RequestEditorFn) ([]RatedEvent, error) {
 	pageParams := GetMemberRatedEventsPageParams{Size: defaultPaginationPageSize}
 	items, err := collectPages(ctx, func(ctx context.Context, offset int32) (pageResult[RatedEvent], error) {
 		pageParams.Offset = offset
